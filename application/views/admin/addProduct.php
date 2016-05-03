@@ -9,6 +9,27 @@ $(document).ready(function() {
 });
 
 </SCRIPT> -->
+<?php
+if (isset($_POST['sum'])) {
+    echo '<p>This was submitted </p>';
+} 
+?>
+
+<script type="text/javascript">
+    function yourfunction(radioid)
+    {
+    if(radioid == 1)
+    {    
+        document.getElementById('one').style.display = '';
+        document.getElementById('two').style.display = 'none';
+     }
+     else if(radioid == 2)
+    {  
+        document.getElementById('two').style.display = '';
+        document.getElementById('one').style.display = 'none';
+    }
+    }
+</script>
 
         <div id="page-wrapper">
             <div class="row">
@@ -49,7 +70,22 @@ $(document).ready(function() {
                                     <input type="hidden" class="form-control" name="post[total_stock]" id="total_stock">
                                 </div>
                             </div> -->
+                            <div class="form-group">
+                                 <STRONG>Cost Range</STRONG></br>
+                                    <INPUT TYPE='checkbox' NAME='grp2' VALUE='Sum' onClick="javascript:return yourfunction(1)">Sum</br>
+                                    <!-- <INPUT TYPE='checkbox' NAME='grp2' VALUE='Per Unit' onClick="javascript:return yourfunction(2)">Per</br> -->
+                                <br/>
 
+                                <div id = "one" style = "display:none"> Sum
+                                <select name="school">
+
+                                <option value="school1">school 1</option>;
+                                <option value="school2">school 2</option>;
+                                <option value="school3">school 3</option>;
+                                </select><br/>
+                                </div><br/>
+
+                            </div>
                             <div class="form-group">
                                 <label for="productName" style="color:#3fa9f5;" class="col-sm-3 control-label">Product Name</label>
                                 <div class="col-sm-8">
@@ -66,8 +102,12 @@ $(document).ready(function() {
 
                             <div class="form-group">
                                 <label for="cost" style="color:#3fa9f5;" class="col-sm-3 control-label">Product Cost</label>
-                                <div class="col-sm-8">
+                                <div class="col-sm-4">
                                     <input type="text" class="form-control" name="post[cost]" id="cost" placeholder="Enter Total Cost">
+                                </div>
+                                <label for="cost" style="color:#3fa9f5;" class="col-sm-1 control-label">Sum</label>
+                                <div class="col-sm-2">
+                                    <input type="checkbox" class="form-control" name="sum">
                                 </div>
                             </div>
 

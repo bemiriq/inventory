@@ -5,14 +5,6 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>               
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- <p class="page-paragraph" style="color:#0077cc;"><strong style="color: #13233c;">Total Stock Transaction </strong>= Stock In + Stock Out + Damage + Stock Remain</p> -->
-                    <p class="page-paragraph" style="color:#0077cc;"><strong style="color: #13233c;">Stock Remain </strong>= Stock In + Damage - Stock Out</p>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
             <br>
             <div class="table-responsive">
                   <table class="table tablesorter table-bordered table-hover table-striped sortable">
