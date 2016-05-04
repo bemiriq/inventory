@@ -10,25 +10,22 @@ $(document).ready(function() {
 
 </SCRIPT> -->
 <?php
+
 if (isset($_POST['sum'])) {
-    echo '<p>This was submitted </p>';
+    $sum = 'cost'/'stockIn';
+    echo $sum;
 } 
 ?>
 
 <script type="text/javascript">
-    function yourfunction(radioid)
-    {
-    if(radioid == 1)
-    {    
-        document.getElementById('one').style.display = '';
-        document.getElementById('two').style.display = 'none';
-     }
-     else if(radioid == 2)
-    {  
-        document.getElementById('two').style.display = '';
-        document.getElementById('one').style.display = 'none';
-    }
-    }
+    calculate = function()
+{
+    var cost = document.getElementById('a1').value;
+    var sum = document.getElementById('a2').value; 
+    document.getElementById('a3').value = parseInt(cost)/parseInt(stockIn);
+
+   }    
+
 </script>
 
         <div id="page-wrapper">
@@ -55,7 +52,7 @@ if (isset($_POST['sum'])) {
                             <!-- <div class="form-group">
                                 <label for="category_name" style="color:#3fa9f5;" class="col-sm-3 control-label">Stock Category</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control" name="post[category_name]">
+                                    <select class="form-control" name="add_product[category_name]">
                                         <?php foreach($fichas_info as $row){?>
                                             <option value="<?php echo $row['category_name'] ;?>" id="category_name"><?php echo $row['category_name'] ;?></option>
                                         <?php }?>
@@ -67,13 +64,13 @@ if (isset($_POST['sum'])) {
 
                             <!-- <div class="form-group">
                                 <div class="col-sm-8">
-                                    <input type="hidden" class="form-control" name="post[total_stock]" id="total_stock">
+                                    <input type="hidden" class="form-control" name="add_product[total_stock]" id="total_stock">
                                 </div>
                             </div> -->
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                  <STRONG>Cost Range</STRONG></br>
                                     <INPUT TYPE='checkbox' NAME='grp2' VALUE='Sum' onClick="javascript:return yourfunction(1)">Sum</br>
-                                    <!-- <INPUT TYPE='checkbox' NAME='grp2' VALUE='Per Unit' onClick="javascript:return yourfunction(2)">Per</br> -->
+                                    <!-- <INPUT TYPE='checkbox' NAME='grp2' VALUE='Per Unit' onClick="javascript:return yourfunction(2)">Per</br>
                                 <br/>
 
                                 <div id = "one" style = "display:none"> Sum
@@ -85,35 +82,35 @@ if (isset($_POST['sum'])) {
                                 </select><br/>
                                 </div><br/>
 
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <label for="productName" style="color:#3fa9f5;" class="col-sm-3 control-label">Product Name</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="post[productName]" id="productName" placeholder="Enter product name">
+                                    <input type="text" class="form-control" name="add_product[productName]" id="productName" placeholder="Enter product name">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="stockIn" style="color:#3fa9f5;" class="col-sm-3 control-label">Product In</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="post[stockIn]" id="stockIn">
+                                    <input type="text" class="form-control" name="add_product[stockIn]" id="stockIn">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="cost" style="color:#3fa9f5;" class="col-sm-3 control-label">Product Cost</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="post[cost]" id="cost" placeholder="Enter Total Cost">
+                                    <input type="text" class="form-control" name="add_product[cost]" id="cost" placeholder="Enter Total Cost">
                                 </div>
                                 <label for="cost" style="color:#3fa9f5;" class="col-sm-1 control-label">Sum</label>
                                 <div class="col-sm-2">
-                                    <input type="checkbox" class="form-control" name="sum">
+                                    <input type="checkbox" class="form-control" name="add_product[sum]" value="1">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <div class="col-sm-offset-6 col-sm-5">
-                                    <button type="submit" style="color:white; background:#3fa9f5;" name="add_product" value="Add Product" class="btn btn-default"  onClick = "calculateAdd()">Submit</button>
+                                    <button type="submit" style="color:white; background:#3fa9f5;" value="Add Product" class="btn btn-default" >Submit</button>
                                 </div>
                             </div>
 

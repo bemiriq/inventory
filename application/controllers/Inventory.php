@@ -94,15 +94,16 @@ class Inventory extends CI_Controller {
 
 	public function addProduct()
 	 {
-	 	if(@$_POST['add_product'])
+	 	if($data = $this->input->post('add_product'))
 		{
-			$data = $_POST['post'];
 			$data['date_posted'] = date('Y-m-d H:i:s');
+			if(isset($data['sum'])) {
+				$data['cost']=$data['cost']/$data['stockIn'];
+				unset($data['sum']);
+			}
 			$this->product->add($data);
 			$this->session->set_flashdata('message',"Product added successfully");
-			$this->header();
-			$this->load->view("admin/addProduct");
-			$this->footer();
+			redirect('inventory/addProduct');
 		}
 		else{
 			$this->header();
