@@ -95,7 +95,7 @@ class Inventory extends CI_Controller {
 
 	public function addProduct()
 	 {
-	 	if($data = $this->input->post('add_product'))
+	 	if($data = $this->input->post('product'))
 		{
 			$data['date_posted'] = date('Y-m-d H:i:s');
 			if(isset($data['sum'])) {
@@ -108,7 +108,8 @@ class Inventory extends CI_Controller {
 		}
 		else{
 			$this->header();
-			$this->load->view("admin/addProduct");
+			$data['action'] = 'Add';
+			$this->load->view("admin/addEditProduct", $data);
 			$this->footer();
 		}
 	 }
@@ -153,11 +154,16 @@ class Inventory extends CI_Controller {
 			redirect("stock/viewProduct");
 		}
 
-		if($data = $this->input->post('update_product'))
+		if($data = $this->input->post('product'))
 		{
-			// $this->header();
-			// $this->footer();
-			$data = $_POST['post'];
+			$data['date_posted'] = date('Y-m-d H:i:s');
+			
+			$data = $_POST['product'];
+			if(isset($data['sum'])) {
+				$data['cost']=$data['cost']/$data['stockIn'];
+				unset($data['sum']);
+			}
+
 			$this->product->update($data,$id);
 			$this->session->set_flashdata('message',"Product updated successfully");
 			redirect("inventory/viewProduct");
@@ -167,8 +173,9 @@ class Inventory extends CI_Controller {
 		// echo '3';
 		$this->header();
 		$this->footer();
+		$data['action'] = 'Edit';
 		$data['post'] = $post;
-		$this->load->view("admin/editProduct",$data);
+		$this->load->view("admin/addEditProduct", $data);
 	}
 
 	function editTransaction()
