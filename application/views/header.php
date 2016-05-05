@@ -35,6 +35,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 </head>
 
@@ -136,13 +137,16 @@
                         </li>
 
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Inventory<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Transaction<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?=site_url('inventory/addinventory')?>">Add Inventory</a>
+                                    <a href="<?=site_url('inventory/addTransaction')?>">Add Transaction</a>
                                 </li>
+                                <!-- <li>
+                                    <a href="<?=site_url('inventory/search')?>">Create Transaction</a>
+                                </li> -->
                                 <li>
-                                    <a href="<?=site_url('inventory/viewinventory')?>">Update & Delete Inventory</a>
+                                    <a href="<?=site_url('inventory/viewTransaction')?>">Update & Delete Transaction</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

@@ -10,8 +10,8 @@ class Inventory extends CI_Controller {
 	   // $this->load->library('session');
 	   $this->load->model('loginModel','',TRUE);
 	   $this->load->model('productModel','product');
-	   // $this->load->model('stockModel','post1');
-
+	   $this->load->model('supplierModel','supplier');
+	   $this->load->model('transactionModel','transaction');
 	 }
 	/**
 	 * Index Page for this controller.
@@ -112,11 +112,49 @@ class Inventory extends CI_Controller {
 		}
 	 }
 
+	public function addTransaction()
+	 {
+	 	if($data = $this->input->post('add_transaction'))
+		{
+			$data['date_posted'] = date('Y-m-d H:i:s');
+			$this->transaction->add($data);
+			$this->session->set_flashdata('message',"Product added successfully");
+			redirect('inventory/addTransaction');
+		}
+		else{
+			$this->header();
+			$this->load->view("admin/addTransaction");
+			$this->footer();
+		}
+	 }
+
 	public function viewProduct(){
 	 	$this->header();
 		$this->footer();
 		$data['posts']=$this->product->getAll();
 		$this->load->view('admin/viewProduct',$data);
 	}
+
+	public function viewTransaction(){
+	 	$this->header();
+		$this->footer();
+		$data['posts']=$this->transaction->getAll();
+		$this->load->view('admin/viewTransaction',$data);
+	}
+
+	public function search(){
+		// $this->header();
+		// $this->footer();
+		$this->get_names();
+		$this->load->view('admin/search');
+	}
+
+	function get_names(){
+    $this->load->model('supplierModel','supplier');
+    if (isset($_GET['term'])){
+      $q = strtolower($_GET['term']);
+      $this->supplier->get_name($q);
+    }
+  }
 
 }
