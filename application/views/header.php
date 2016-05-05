@@ -129,9 +129,9 @@
                                 <li>
                                     <a href="<?=site_url('inventory/viewProduct')?>">Update & Delete Product</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="<?=site_url('inventory/cms')?>">Product List</a>
-                                </li>
+                                </li> -->
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

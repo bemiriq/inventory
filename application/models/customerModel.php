@@ -1,8 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class productModel extends CI_Model 
+class customerModel extends CI_Model 
 {
-  var $table = "product";
+  var $table = "customer";
   // var $table = "postmenu";
 
   function __construct()
@@ -31,7 +31,7 @@ class productModel extends CI_Model
   }
 
 function get_fichas() {
-    $this->db->select('productName')->from('product');
+    $this->db->select('name')->from('customer');
     $query=$this->db->get();
     return $query->result_array();
 }
@@ -44,24 +44,35 @@ function get_fichas() {
 
   function update($data,$id)
   {
-    $this->db->where("product_id",$id);
+    $this->db->where("customer_id",$id);
     $this->db->update($this->table,$data);
   }
 
 
   function delete($id)
   {
-    $this->db->where("product_id",$id);
+    $this->db->where("customer_id",$id);
     $this->db->delete($this->table);
+  }
+
+  function get_name($q){
+    $this->db->select('name')->from('customer');
+    $q = $this->db->get();
+    if($q->num_rows() > 0){
+      foreach ($q->result_array() as $row){
+        $row_set[] = htmlentities(stripslashes($row['name'])); //build an array
+      }
+      echo json_encode($row_set); //format the array into json data
+    }
   }
 
   function dashboard3()
   {
-    $query = $this->db->query("SELECT`product_id` FROM `navigation` order by product_id desc limit 1");
+    $query = $this->db->query("SELECT`customer_id` FROM `navigation` order by customer_id desc limit 1");
       if($query->num_rows()){
           foreach ($query->result() as $row)
          {
-            echo $row->product_id;
+            echo $row->customer_id;
          }
          
         }
@@ -69,7 +80,7 @@ function get_fichas() {
 
   function getById($id)
   {
-    $this->db->where("product_id",$id);
+    $this->db->where("customer_id",$id);
     $q = $this->db->get($this->table);
     if($q->num_rows() > 0)
     {

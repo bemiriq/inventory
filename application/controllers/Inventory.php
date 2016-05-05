@@ -11,6 +11,7 @@ class Inventory extends CI_Controller {
 	   $this->load->model('loginModel','',TRUE);
 	   $this->load->model('productModel','product');
 	   $this->load->model('supplierModel','supplier');
+	    $this->load->model('customerModel','customer');
 	   $this->load->model('transactionModel','transaction');
 	 }
 	/**
@@ -141,6 +142,83 @@ class Inventory extends CI_Controller {
 		$data['posts']=$this->transaction->getAll();
 		$this->load->view('admin/viewTransaction',$data);
 	}
+
+	function editProduct()
+	{
+		$id = $this->uri->segment(3);
+		$post = $this->product->getById($id);
+		if(!$post)
+		{
+			// echo '1';
+			redirect("stock/viewProduct");
+		}
+
+		if($data = $this->input->post('update_product'))
+		{
+			// $this->header();
+			// $this->footer();
+			$data = $_POST['post'];
+			$this->product->update($data,$id);
+			$this->session->set_flashdata('message',"Product updated successfully");
+			redirect("inventory/viewProduct");
+			// echo '2';
+		}
+
+		// echo '3';
+		$this->header();
+		$this->footer();
+		$data['post'] = $post;
+		$this->load->view("admin/editProduct",$data);
+	}
+
+	function editTransaction()
+	{
+		$id = $this->uri->segment(3);
+		$post = $this->transaction->getById($id);
+		if(!$post)
+		{
+			// echo '1';
+			redirect("inventory/viewTransaction");
+		}
+
+		if($data = $this->input->post('update_transaction'))
+		{
+			// $this->load->view('header');
+			// $this->load->view('footer');
+			$data = $_POST['post'];
+			$this->transaction->update($data,$id);
+			$this->session->set_flashdata('message',"Transaction updated successfully");
+			redirect("inventory/editTransaction");
+			// echo '2';
+		}
+
+		// echo '3';
+		$this->header();
+		$this->footer();
+		$data['post'] = $post;
+		$this->load->view("admin/editTransaction",$data);
+	}
+
+	function deleteProduct()
+	{
+		$this->header();
+		$this->footer();
+		$id = $this->uri->segment(3);
+		$this->product->delete($id);
+		$this->session->set_flashdata('message',"Product deleted successfully");
+		redirect("inventory/viewProduct");
+	}
+
+	function deleteTransaction()
+	{
+		$this->header();
+		$this->footer();
+		$id = $this->uri->segment(3);
+		$this->transaction->delete($id);
+		$this->session->set_flashdata('message',"Transaction deleted successfully");
+		redirect("inventory/viewTransaction");
+	}
+
 
 	public function search(){
 		// $this->header();
