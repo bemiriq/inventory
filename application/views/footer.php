@@ -12,14 +12,55 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="<?=base_url('public/dist/js/sb-admin-2.js')?>"></script>
-
+    <script src="<?=base_url('public/bootstrapValidator/js/bootstrapValidator.js')?>"></script>
   
   <!-- <script src="//code.jquery.com/jquery-1.10.2.js"></script> -->
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript">
-        $(function(){
-          $("#get_names_supplier").autocomplete({
-            source: "<?php echo site_url('inventory/get_names'); ?>" // path to the get_birds method
-          });
-        });
-    </script>
+  $(document).ready(function() {
+    $('#contactForm').bootstrapValidator({
+        container: '#messages',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            'product[productName]' : {
+                validators: {
+                    notEmpty: {
+                        message: 'The full name is required and cannot be empty'
+                    }
+                }
+            },
+            'product[stockIn]': {
+                validators: {
+                    notEmpty: {
+                        message: 'Added product field must not be empty'
+                    },
+                    integer: {
+                            message: 'Product Added value is not an integer',
+                            // The default separators
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        }
+                }
+            },
+            'product[cost]': {
+                validators: {
+                    notEmpty: {
+                        message: 'Product cost field must not be empty'
+                    },
+                    integer: {
+                            message: 'Product cost value is not an integer',
+                            // The default separators
+                            thousandsSeparator: '',
+                            decimalSeparator: '.'
+                        }
+                }
+            },
+        }
+    });
+});
+</script>
+
+    

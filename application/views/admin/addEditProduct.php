@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-lg-6">
                 
-                    <form name="frmOne" class="form-horizontal" action="" method="post">
+                    <form name="contactForm" id="contactForm" class="form-horizontal" action="" method="post">
                     
                             <div class="form-group">
                                 <label for="productName" style="color:#3fa9f5;" class="col-sm-3 control-label">Product Name</label>
