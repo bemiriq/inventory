@@ -30,13 +30,13 @@
                             <div class="form-group">
                                 <label for="stockIn" style="color:#3fa9f5;" class="col-sm-3 control-label">Product In</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" value="<?php echo isset($post)?$post->stockIn:''; ?>" name="product[stockIn]" id="stockIn">
+                                    <input type="text" class="form-control" value="<?php echo isset($post)?$post->stockIn:''; ?>" name="product[stockIn]" id="stockIn" placeholder="Enter product in number">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="cost" style="color:#3fa9f5;" class="col-sm-3 control-label">Product Cost</label>
-                                <div class="col-sm-4">
+                                <div class="col-sm-5">
                                     <input type="text" class="form-control" value="<?php echo isset($post)?$post->cost:''; ?>" name="product[cost]" id="cost" placeholder="Enter Total Cost">
                                 </div>
                                 <label for="cost" style="color:#3fa9f5;" class="col-sm-1 control-label">Sum</label>

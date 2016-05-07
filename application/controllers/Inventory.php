@@ -11,8 +11,9 @@ class Inventory extends CI_Controller {
 	   $this->load->model('loginModel','',TRUE);
 	   $this->load->model('productModel','product');
 	   $this->load->model('supplierModel','supplier');
-	    $this->load->model('customerModel','customer');
+	   $this->load->model('customerModel','customer');
 	   $this->load->model('transactionModel','transaction');
+	   $this->load->model('productLogModel','productLog');
 	 }
 	/**
 	 * Index Page for this controller.
@@ -103,6 +104,7 @@ class Inventory extends CI_Controller {
 				unset($data['sum']);
 			}
 			$this->product->add($data);
+			$this->productLog->add($data);
 			$this->session->set_flashdata('message',"Product added successfully");
 			redirect('inventory/addProduct');
 		}
@@ -148,15 +150,10 @@ class Inventory extends CI_Controller {
 	{
 		$id = $this->uri->segment(3);
 		$post = $this->product->getById($id);
-		if(!$post)
-		{
-			// echo '1';
-			redirect("stock/viewProduct");
-		}
 
 		if($data = $this->input->post('product'))
 		{
-			$data['date_posted'] = date('Y-m-d H:i:s');
+			// $data['date_posted'] = date('Y-m-d H:i:s');
 			
 			$data = $_POST['product'];
 			if(isset($data['sum'])) {
@@ -164,7 +161,9 @@ class Inventory extends CI_Controller {
 				unset($data['sum']);
 			}
 
+			$data['date_posted'] = date('Y-m-d H:i:s');
 			$this->product->update($data,$id);
+			$this->productLog->add($data);
 			$this->session->set_flashdata('message',"Product updated successfully");
 			redirect("inventory/viewProduct");
 			// echo '2';

@@ -1,8 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class productModel extends CI_Model 
+class productLogModel extends CI_Model 
 {
-  var $table = "product";
+  var $table = "productLog";
   // var $table = "postmenu";
 
   function __construct()
@@ -44,24 +44,24 @@ function get_fichas() {
 
   function update($data,$id)
   {
-    $this->db->where("product_id",$id);
+    $this->db->where("productLog_id",$id);
     $this->db->update($this->table,$data);
   }
 
 
   function delete($id)
   {
-    $this->db->where("product_id",$id);
+    $this->db->where("productLog_id",$id);
     $this->db->delete($this->table);
   }
 
   function dashboard3()
   {
-    $query = $this->db->query("SELECT`product_id` FROM `navigation` order by product_id desc limit 1");
+    $query = $this->db->query("SELECT`productLog_id` FROM `navigation` order by productLog_id desc limit 1");
       if($query->num_rows()){
           foreach ($query->result() as $row)
          {
-            echo $row->product_id;
+            echo $row->productLog_id;
          }
          
         }
@@ -69,7 +69,7 @@ function get_fichas() {
 
   function getById($id)
   {
-    $this->db->where("product_id",$id);
+    $this->db->where("productLog_id",$id);
     $q = $this->db->get($this->table);
     if($q->num_rows() > 0)
     {
