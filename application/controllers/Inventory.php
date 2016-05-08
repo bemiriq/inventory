@@ -12,6 +12,7 @@ class Inventory extends CI_Controller {
 	   $this->load->model('productModel','product');
 	   $this->load->model('supplierModel','supplier');
 	   $this->load->model('customerModel','customer');
+	   $this->load->model('productNameModel','productName');
 	   $this->load->model('transactionModel','transaction');
 	   $this->load->model('productLogModel','productLog');
 	 }
@@ -36,6 +37,20 @@ class Inventory extends CI_Controller {
 
 		// the code below here is for the logout function 
 		$this->load->library('session');
+
+		//applying folowing the tutorial for session
+		print_r($this->session->all_userdata());
+		$this->session->set_userdata('username','Beckham');
+		$this->session->set_userdata('user_email','sandeshphuyalc@yahoo.com');
+		$this->session->set_userdata('login_attempt','3');
+		if (!$this->session->userdata('username')){
+			echo 'Not logged in ';
+		}
+		else {
+			echo 'Welcome';
+		}
+		//end of session
+
 		// end of the logout function code
 		$this->load->helper('form'); 
 		// $this->load->library('session');
@@ -60,19 +75,20 @@ class Inventory extends CI_Controller {
 	 function check_database($password)
 	 {
 	   //Field validation succeeded.  Validate against database
-	    
 	   $username = $this->input->post('username');
 	   
-
 	   //query the database
 	   $result = $this->loginModel->login($username, $password);
 
 	   if($result)
 	   {
-	     // echo 'Correct Password';
-	     $this->dashboard();
-	     
-	   }
+		    foreach ($result as $result ) {
+		    redirect('inventory/dashboard');
+		    // $this->dashboard();
+		    $ucat = $result->name;
+		  	echo $ucat;
+		  	}
+	  	}
 	   else
 	   {
 	       echo '<p style="width: 300px; margin-right: auto; margin-left: auto; margin-top: 1%; color: #B22222"> Incorrect Username and Password </p>';
@@ -90,7 +106,8 @@ class Inventory extends CI_Controller {
 
 	public function dashboard(){
 	 	$this->header();
-	 	$this->load->view('admin/dashboard');
+	 	$data['action'] = ' Add';
+	 	$this->load->view('admin/dashboard', $data);
 	 	$this->footer();
 	}
 
@@ -118,7 +135,7 @@ class Inventory extends CI_Controller {
 
 	public function addTransaction()
 	 {
-	 	if($data = $this->input->post('add_transaction'))
+	 	if($data = $this->input->post('transaction'))
 		{
 			$data['date_posted'] = date('Y-m-d H:i:s');
 			$this->transaction->add($data);
@@ -127,7 +144,8 @@ class Inventory extends CI_Controller {
 		}
 		else{
 			$this->header();
-			$this->load->view("admin/addTransaction");
+			$data['action'] = 'Add';
+			$this->load->view("admin/addEditTransaction", $data);
 			$this->footer();
 		}
 	 }
@@ -181,28 +199,25 @@ class Inventory extends CI_Controller {
 	{
 		$id = $this->uri->segment(3);
 		$post = $this->transaction->getById($id);
-		if(!$post)
-		{
-			// echo '1';
-			redirect("inventory/viewTransaction");
-		}
 
-		if($data = $this->input->post('update_transaction'))
+		if($data = $this->input->post('transaction'))
 		{
 			// $this->load->view('header');
 			// $this->load->view('footer');
-			$data = $_POST['post'];
+			$data = $_POST['transaction'];
+			// $data['date_posted'] = date('Y-m-d H:i:s');
 			$this->transaction->update($data,$id);
 			$this->session->set_flashdata('message',"Transaction updated successfully");
-			redirect("inventory/editTransaction");
+			redirect("inventory/viewTransaction");
 			// echo '2';
 		}
 
 		// echo '3';
 		$this->header();
 		$this->footer();
+		$data['action'] = 'Edit';
 		$data['post'] = $post;
-		$this->load->view("admin/editTransaction",$data);
+		$this->load->view("admin/addEditTransaction",$data);
 	}
 
 	function deleteProduct()
@@ -234,11 +249,31 @@ class Inventory extends CI_Controller {
 	}
 
 	function get_names(){
-    $this->load->model('supplierModel','supplier');
-    if (isset($_GET['term'])){
-      $q = strtolower($_GET['term']);
-      $this->supplier->get_name($q);
-    }
-  }
+	    $this->load->model('supplierModel','supplier');
+	    if (isset($_GET['term'])){
+	      $q = strtolower($_GET['term']);
+	      $this->supplier->get_name($q);
+	    }
+  	}
 
+	 function get_customer_names(){
+	    $this->load->model('customerModel','customer');
+	    if (isset($_GET['term'])){
+	      $q = strtolower($_GET['term']);
+	      $this->customer->get_name($q);
+	    }
+	 }
+
+	function get_product_names(){
+	    $this->load->model('productNameModel','productName');
+	    if (isset($_GET['term'])){
+	      $q = strtolower($_GET['term']);
+	      $this->productName->get_name($q);
+	    }
+	}
+
+	public function logout(){
+		$this->session->sess_destroy();
+		redirect(base_url());
+	}
 }

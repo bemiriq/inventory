@@ -5,7 +5,7 @@ class loginModel extends CI_Model
  function login($username,$password)
  {
      
-   $this -> db -> select('username, password');
+   $this -> db -> select('username, password, name');
    $this -> db -> from('users');
    $this -> db -> where('username', $username);
    $this -> db -> where('password', $password);
@@ -16,6 +16,8 @@ class loginModel extends CI_Model
    if($query -> num_rows() == 1)
    {
      return $query->result();
+     $this->set_session($username,$password);
+     print_r($this->session->all_userdata());
      //echo 'Now it consists the home page function';
    }
    else false;

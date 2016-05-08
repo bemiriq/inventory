@@ -27,7 +27,7 @@
                            <td><?=$post->cost?></td>
                            <td><?=$post->date_posted?></td>
                            <td><a href="<?=site_url("inventory/editProduct/".$post->product_id)?>">edit</a> </td>
-                           <td> <a href="<?=site_url("inventory/deleteProduct/".$post->product_id)?>">delete</a></td>
+                           <td> <a href="<?=site_url("inventory/deleteProduct/".$post->product_id)?>" onclick="return confirm('Do you realy want to delete this product ?'); " >delete</a></td>
                         </tr>
                         <?php $i++; endforeach; ?>
                      </tbody>
