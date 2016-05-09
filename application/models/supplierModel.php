@@ -56,11 +56,11 @@ function get_fichas() {
   }
 
   function get_name($q){
-    $this->db->select('name')->from('supplier');
+    $this->db->select('supplierName')->from('supplier');
     $q = $this->db->get();
     if($q->num_rows() > 0){
       foreach ($q->result_array() as $row){
-        $row_set[] = htmlentities(stripslashes($row['name'])); //build an array
+        $row_set[] = htmlentities(stripslashes($row['supplierName'])); //build an array
       }
       echo json_encode($row_set); //format the array into json data
     }

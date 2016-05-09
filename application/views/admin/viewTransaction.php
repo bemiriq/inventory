@@ -19,7 +19,6 @@
                            <th>Date</th>
                            <th>Update</th>
                            <th>Delete</th>
-
                         </tr>
                      </thead>
                      <tbody>
@@ -33,7 +32,7 @@
                            <td><?=$post->cost?></td>
                            <td><?=$post->date_posted?></td>
                            <td><a href="<?=site_url("inventory/editTransaction/".$post->transaction_id)?>">edit</a> </td>
-                           <td> <a href="<?=site_url("inventory/deleteTransaction/".$post->transaction_id)?>" onclick="return confirm('Do you realy want to delete this transaction ?');>delete</a></td>
+                           <td> <a href="<?=site_url("inventory/deleteTransaction/".$post->transaction_id)?>" onclick="return confirm('Do you realy want to delete this transaction ?');">delete</a></td>
                         </tr>
                         <?php $i++; endforeach; ?>
                      </tbody>

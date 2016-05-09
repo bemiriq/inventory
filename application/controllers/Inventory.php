@@ -10,11 +10,12 @@ class Inventory extends CI_Controller {
 	   // $this->load->library('session');
 	   $this->load->model('loginModel','',TRUE);
 	   $this->load->model('productModel','product');
-	   $this->load->model('supplierModel','supplier');
-	   $this->load->model('customerModel','customer');
+	   // $this->load->model('supplierModel','supplier');
+	   // $this->load->model('customerModel','customer');
 	   $this->load->model('productNameModel','productName');
 	   $this->load->model('transactionModel','transaction');
 	   $this->load->model('productLogModel','productLog');
+	   $this->load->model('transactionLogModel','transactionLog');
 	 }
 	/**
 	 * Index Page for this controller.
@@ -107,6 +108,7 @@ class Inventory extends CI_Controller {
 	public function dashboard(){
 	 	$this->header();
 	 	$data['action'] = ' Add';
+	 	$data['posts']=$this->transaction->get_table();
 	 	$this->load->view('admin/dashboard', $data);
 	 	$this->footer();
 	}
@@ -139,6 +141,7 @@ class Inventory extends CI_Controller {
 		{
 			$data['date_posted'] = date('Y-m-d H:i:s');
 			$this->transaction->add($data);
+			$this->transactionLog->add($data);
 			$this->session->set_flashdata('message',"Product added successfully");
 			redirect('inventory/addTransaction');
 		}
@@ -205,8 +208,9 @@ class Inventory extends CI_Controller {
 			// $this->load->view('header');
 			// $this->load->view('footer');
 			$data = $_POST['transaction'];
-			// $data['date_posted'] = date('Y-m-d H:i:s');
+			$data['date_posted'] = date('Y-m-d H:i:s');
 			$this->transaction->update($data,$id);
+			$this->transactionLog->add($data);
 			$this->session->set_flashdata('message',"Transaction updated successfully");
 			redirect("inventory/viewTransaction");
 			// echo '2';
@@ -248,27 +252,27 @@ class Inventory extends CI_Controller {
 		$this->load->view('admin/search');
 	}
 
-	function get_names(){
-	    $this->load->model('supplierModel','supplier');
+	function get_supplier_names(){
+	    $this->load->model('transactionModel','transaction');
 	    if (isset($_GET['term'])){
 	      $q = strtolower($_GET['term']);
-	      $this->supplier->get_name($q);
+	      $this->transaction->get_name_supplier($q);
 	    }
   	}
 
 	 function get_customer_names(){
-	    $this->load->model('customerModel','customer');
+	    $this->load->model('transactionModel','transaction');
 	    if (isset($_GET['term'])){
 	      $q = strtolower($_GET['term']);
-	      $this->customer->get_name($q);
+	      $this->transaction->get_name_customer($q);
 	    }
 	 }
 
 	function get_product_names(){
-	    $this->load->model('productNameModel','productName');
+	    $this->load->model('productModel','product');
 	    if (isset($_GET['term'])){
 	      $q = strtolower($_GET['term']);
-	      $this->productName->get_name($q);
+	      $this->product->get_name_product($q);
 	    }
 	}
 

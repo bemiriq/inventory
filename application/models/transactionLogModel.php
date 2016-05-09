@@ -1,8 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class productNameModel extends CI_Model 
+class transactionLogModel extends CI_Model 
 {
-  var $table = "productName";
+  var $table = "transactionLog";
   // var $table = "postmenu";
 
   function __construct()
@@ -31,7 +31,7 @@ class productNameModel extends CI_Model
   }
 
 function get_fichas() {
-    $this->db->select('name')->from('productName');
+    $this->db->select('transactionName')->from('transaction');
     $query=$this->db->get();
     return $query->result_array();
 }
@@ -44,35 +44,24 @@ function get_fichas() {
 
   function update($data,$id)
   {
-    $this->db->where("productName_id",$id);
+    $this->db->where("transactionLog_id",$id);
     $this->db->update($this->table,$data);
   }
 
 
   function delete($id)
   {
-    $this->db->where("productName_id",$id);
+    $this->db->where("transactionLog_id",$id);
     $this->db->delete($this->table);
-  }
-
-  function get_name($q){
-    $this->db->select('productName')->from('productName');
-    $q = $this->db->get();
-    if($q->num_rows() > 0){
-      foreach ($q->result_array() as $row){
-        $row_set[] = htmlentities(stripslashes($row['productName'])); //build an array
-      }
-      echo json_encode($row_set); //format the array into json data
-    }
   }
 
   function dashboard3()
   {
-    $query = $this->db->query("SELECT`productName_id` FROM `navigation` order by productName_id desc limit 1");
+    $query = $this->db->query("SELECT`transactionLog_id` FROM `navigation` order by transactionLog_id desc limit 1");
       if($query->num_rows()){
           foreach ($query->result() as $row)
          {
-            echo $row->productName_id;
+            echo $row->transactionLog_id;
          }
          
         }
@@ -80,7 +69,7 @@ function get_fichas() {
 
   function getById($id)
   {
-    $this->db->where("productName_id",$id);
+    $this->db->where("transactionLog_id",$id);
     $q = $this->db->get($this->table);
     if($q->num_rows() > 0)
     {
@@ -88,22 +77,6 @@ function get_fichas() {
     }
     return false;
   }
-
-  public function cmsmodel(){
-
-      $query = $this->db->query("SELECT category_name FROM navigation");
-
-      if($query->num_rows()){
-          foreach ($query->result() as $row)
-         {
-            echo $row->category_name .'</br>';
-         }
-         
-        }
-      }
-
-
-
 
 }
 

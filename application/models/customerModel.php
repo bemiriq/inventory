@@ -30,13 +30,6 @@ class customerModel extends CI_Model
     return $this->db->count_all($this->table);
   }
 
-function get_fichas() {
-    $this->db->select('name')->from('customer');
-    $query=$this->db->get();
-    return $query->result_array();
-}
-
-
   function add($data)
   {
     $this->db->insert($this->table,$data);
@@ -56,11 +49,11 @@ function get_fichas() {
   }
 
   function get_name($q){
-    $this->db->select('name')->from('customer');
+    $this->db->select('customerName')->from('customer');
     $q = $this->db->get();
     if($q->num_rows() > 0){
       foreach ($q->result_array() as $row){
-        $row_set[] = htmlentities(stripslashes($row['name'])); //build an array
+        $row_set[] = htmlentities(stripslashes($row['customerName'])); //build an array
       }
       echo json_encode($row_set); //format the array into json data
     }
@@ -88,21 +81,6 @@ function get_fichas() {
     }
     return false;
   }
-
-  public function cmsmodel(){
-
-      $query = $this->db->query("SELECT category_name FROM navigation");
-
-      if($query->num_rows()){
-          foreach ($query->result() as $row)
-         {
-            echo $row->category_name .'</br>';
-         }
-         
-        }
-      }
-
-
 
 
 }

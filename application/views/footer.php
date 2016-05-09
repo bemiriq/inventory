@@ -19,7 +19,7 @@
         <script type="text/javascript">
             $(function(){
               $("#get_names_supplier").autocomplete({
-                source: "<?php echo site_url('inventory/get_names'); ?>" // path to the get_birds method
+                source: "<?php echo site_url('inventory/get_supplier_names'); ?>" // path to the get_birds method
               });
             });
         </script>

@@ -23,7 +23,7 @@
                         <?php $i=1; foreach($posts as $post): ?>
                         <tr <?=($i % 2 == 0) ? 'class="even"' : '' ?>>
                            <td><?=$post->productName?></td>
-                           <td><?=$post->stockIn?></td>
+                           <td><?=$post->total?></td>
                            <td><?=$post->cost?></td>
                            <td><?=$post->date_posted?></td>
                            <td><a href="<?=site_url("inventory/editProduct/".$post->product_id)?>">edit</a> </td>

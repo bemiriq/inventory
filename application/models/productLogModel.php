@@ -78,19 +78,6 @@ function get_fichas() {
     return false;
   }
 
-  public function cmsmodel(){
-
-      $query = $this->db->query("SELECT category_name FROM navigation");
-
-      if($query->num_rows()){
-          foreach ($query->result() as $row)
-         {
-            echo $row->category_name .'</br>';
-         }
-         
-        }
-      }
-
 }
 
 
