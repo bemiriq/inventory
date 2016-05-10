@@ -10,7 +10,6 @@ class Inventory extends CI_Controller
     {
         parent::__construct();
         //echo "FOUND MODEL";
-        // $this->load->library('session');
         $this->load->model('loginModel', '', TRUE);
         $this->load->model('productModel', 'product');
         // $this->load->model('supplierModel','supplier');

@@ -8,9 +8,6 @@ class Auth extends CI_Controller
         parent::__construct();
         $this->load->model('loginModel', '', TRUE);
         // the code below here is for the logout function
-        $this->load->library('session');
-
-        // end of the logout function code
         $this->load->helper('form');
         // $this->load->library('session');
         $this->load->library('form_validation');
