@@ -10,13 +10,10 @@
                   <table class="table tablesorter table-bordered table-hover table-striped sortable">
                      <thead>
                         <tr>
-                           <th>Product Name</th>
-                           <th>Supplier Name</th>
-                           <th>Product Sold</th>
-                           <th>Customer Name</th>
-                           <th>Product Sold</th>
-                           <th>Product Cost</th>
-                           <th>Date</th>
+                           <th>Type</th>
+                           <th>Unit</th>
+                           <th>Cost</th>
+                           <th>Date Posted</th>
                            <th>Update</th>
                            <th>Delete</th>
                         </tr>
@@ -24,11 +21,8 @@
                      <tbody>
                         <?php $i=1; foreach($posts as $post): ?>
                         <tr <?=($i % 2 == 0) ? 'class="even"' : '' ?>>
-                           <td><?=$post->productName?></td>
-                           <td><?=$post->supplierName?></td>
-                           <td><?=$post->stockSell?></td>
-                           <td><?=$post->customerName?></td>
-                           <td><?=$post->totalStockBuy?></td>
+                           <td><?=$post->name?></td>
+                           <td><?=$post->unit?></td>
                            <td><?=$post->cost?></td>
                            <td><?=$post->date_posted?></td>
                            <td><a href="<?=site_url("inventory/editTransaction/".$post->transaction_id)?>">edit</a> </td>

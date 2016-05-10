@@ -67,6 +67,15 @@ class Inventory extends CI_Controller
         $this->footer();
     }
 
+    public function reportTransaction()
+    {
+        $this->header();
+        $data['action'] = ' Report';
+        // $data['posts'] = $this->transaction->get_table();
+        $this->load->view('admin/reportTransaction', $data);
+        $this->footer();
+    }
+
     public function addProduct()
     {
         if ($data = $this->input->post('product')) {
@@ -75,9 +84,9 @@ class Inventory extends CI_Controller
                 $data['cost'] = $data['cost'] / $data['stockIn'];
                 unset($data['sum']);
             }
+            $data['users_id'] = $this->user->users_id;
             $this->product->add($data);
             $this->productLog->add($data);
-            echo $this->user->users_id();
             $this->session->set_flashdata('message', "Product added successfully");
             redirect('inventory/addProduct');
         } else {
@@ -86,17 +95,72 @@ class Inventory extends CI_Controller
             $this->load->view("admin/addEditProduct", $data);
             $this->footer();
         }
-//        echo $this->user->users_id;
+//        $q = $this->user->users_id;
+//        echo $q;
 
     }
+
+    public function buyProduct()
+    {
+        if ($data = $this->input->post('buyproduct')) {
+            $data['date_posted'] = date('Y-m-d H:i:s');
+            if (isset($data['sum'])) {
+                $data['cost'] = $data['cost'] / $data['unit'];
+                unset($data['sum']);
+            }
+            $data['users_id'] = $this->user->users_id;
+            $this->transaction->add($data);
+//            $this->productLog->add($data);
+            $this->session->set_flashdata('message', "Product bought successfully");
+            redirect('inventory/buyProduct');
+        } else {
+            $this->header();
+            $data['action'] = 'Buy';
+            $this->load->view("admin/buyProduct", $data);
+            $this->footer();
+        }
+//        $q = $this->user->users_id;
+//        echo $q;
+
+    }
+
+    public function sellProduct()
+    {
+        if ($data = $this->input->post('sellproduct')) {
+            $data['date_posted'] = date('Y-m-d H:i:s');
+            if (isset($data['sum'])) {
+                $data['cost'] = $data['cost'] / $data['unit'];
+                unset($data['sum']);
+            }
+            $data['users_id'] = $this->user->users_id;
+            $this->transaction->add($data);
+//            $this->productLog->add($data);
+            $this->session->set_flashdata('message', "Product sold successfully");
+            redirect('inventory/sellProduct');
+        } else {
+            $this->header();
+            $data['action'] = 'Sell';
+            $this->load->view("admin/sellProduct", $data);
+            $this->footer();
+        }
+//        $q = $this->user->users_id;
+//        echo $q;
+
+    }
+
 
     public function addTransaction()
     {
         if ($data = $this->input->post('transaction')) {
             $data['date_posted'] = date('Y-m-d H:i:s');
+            if (isset($data['sum'])) {
+                $data['cost'] = $data['cost'] / $data['unit'];
+                unset($data['sum']);
+            }
+            $data['users_id'] = $this->user->users_id;
             $this->transaction->add($data);
-            $this->transactionLog->add($data);
-            $this->session->set_flashdata('message', "Product added successfully");
+//            $this->transactionLog->add($data);
+            $this->session->set_flashdata('message', "Transaction added successfully");
             redirect('inventory/addTransaction');
         } else {
             $this->header();
@@ -161,9 +225,14 @@ class Inventory extends CI_Controller
             // $this->load->view('header');
             // $this->load->view('footer');
             $data = $_POST['transaction'];
+            if (isset($data['sum'])) {
+                $data['cost'] = $data['cost'] / $data['unit'];
+                unset($data['sum']);
+            }
             $data['date_posted'] = date('Y-m-d H:i:s');
+            $data['users_id'] = $this->user->users_id;
             $this->transaction->update($data, $id);
-            $this->transactionLog->add($data);
+//            $this->transactionLog->add($data);
             $this->session->set_flashdata('message', "Transaction updated successfully");
             redirect("inventory/viewTransaction");
             // echo '2';

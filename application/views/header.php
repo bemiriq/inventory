@@ -125,10 +125,19 @@
                             <a href="#"><i class="fa fa-table fa-fw"></i> Product<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?=site_url('inventory/addProduct')?>">Add Product</a>
+                                    <a href="<?=site_url('inventory/addProduct')?>">Add Product Name</a>
                                 </li>
                                 <li>
-                                    <a href="<?=site_url('inventory/viewProduct')?>">Update & Delete Product</a>
+                                    <a href="<?=site_url('inventory/buyProduct')?>">Buy Product</a>
+                                </li>
+                                <li>
+                                    <a href="<?=site_url('inventory/sellProduct')?>">Sell Product</a>
+                                </li>
+                                <li>
+                                    <a href="<?=site_url('inventory/viewProduct')?>">Update Product Name</a>
+                                </li>
+                                <li>
+                                    <a href="<?=site_url('inventory/viewTransaction')?>">Update Product Transaction</a>
                                 </li>
                                 <!-- <li>
                                     <a href="<?=site_url('inventory/cms')?>">Product List</a>
@@ -141,14 +150,14 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Transaction<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?=site_url('inventory/addTransaction')?>">Add Transaction</a>
+                                    <a href="<?=site_url('inventory/reportTransaction')?>">Transaction Report</a>
                                 </li>
                                 <!-- <li>
                                     <a href="<?=site_url('inventory/search')?>">Create Transaction</a>
                                 </li> -->
-                                <li>
+                                <!-- <li>
                                     <a href="<?=site_url('inventory/viewTransaction')?>">Update & Delete Transaction</a>
-                                </li>
+                                </li> -->
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

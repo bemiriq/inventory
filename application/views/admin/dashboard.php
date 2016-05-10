@@ -16,8 +16,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">
-                                        <!-- <? $this->post1->dashboard1() ?> -->
-                                        <?php $this->transaction->dashboard1() ?>
+                                        <!--  <?php $this->product->dashboard4() ?> -->
                                     </div>
                                     <div>Total Transaction</div>
                                 </div>
@@ -35,7 +34,7 @@
                                 <div class="col-xs-9 text-right">
                                     
                                     <div class="huge">
-                                        <?php $this->transaction->dashboard2() ?>
+                                        <!--  <?php $this->product->dashboard4() ?> -->
                                     </div>
                                     
                                     <div>Highest Transaction</div>
@@ -53,7 +52,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">
-                                    <?php $this->product->dashboard3() ?>
+                                        <!--  <?php $this->product->dashboard4() ?> -->
                                        
                                     </div>
                                     <div>Total Products</div>
@@ -72,7 +71,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">
-                                        <?php $this->product->dashboard4() ?> 
+                                       <!--  <?php $this->product->dashboard4() ?> -->
                                     </div>
                                     <div>Total Users</div>
                                 </div>
@@ -86,28 +85,25 @@
                 
                 <div class="table-responsive">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Transaction Detail</h1>
+                    <h1 class="page-header">Product Transaction</h1>
                 </div>
                   <table class="table tablesorter table-bordered table-hover table-striped sortable">
                      <thead>
                         <tr>
-                           <th>Product Name</th>
-                           <th>Supplier Name</th>
-                           <th>Stock Sold</th>
-                           <th>Customer</th>
-                           <th>Stock Bought</th>
+                           <th>Type</th>
+                           <th>Unit</th>
                            <th>Cost</th>
+                           <th>Date Posted</th>
                         </tr>
                      </thead>
                      <tbody>
                        <?php $i=1; foreach($posts as $post): ?>
                         <tr <?=($i % 2 == 0) ? 'class="even"' : '' ?> >
-                           <td><?=$post->productName?></td>
-                           <td><?=$post->supplierName?></td>
-                           <td><?=$post->stockSell?></td>
-                           <td><?=$post->customerName?></td>
-                           <td><?=$post->totalStockBuy?></td>
+                           <!-- <td><?=$post->name?></td> -->
+                           <td>1</td>
+                           <td><?=$post->unit?></td>
                            <td><?=$post->cost?></td>
+                           <td><?=$post->date_posted?></td>
                            <!-- <td><?=$post->stock_remain?></td>
                            <td><?=$post->date_posted?></td> -->
                         </tr>

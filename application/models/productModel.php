@@ -18,7 +18,8 @@ class productModel extends CI_Model
             $this->db->limit($limit['limit'], $limit['offset']);
         }
         // SELECT `productName`, `cost`,`date_posted` , sum(`stockIn`) from product group by `productName`
-        $getData = $this->db->query("SELECT `product_id`,`productName`, `cost`,`date_posted` , sum(`stockIn`) as total from product group by `productName`");
+//        $getData = $this->db->query("SELECT `product_id`,`productName`, `cost`,`date_posted` , sum(`stockIn`) as total from product group by `productName`");
+        $getData = $this->db->get($this->table);
         // $getData = $this->db->get($this->table);
         // $q = $this->db->get($this->table);
         if ($getData->num_rows() > 0) {
