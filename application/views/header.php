@@ -92,7 +92,7 @@
                         </li>
                         <li class="divider"></li> -->
                         <li>
-                            <a href="<?=site_url('inventory/logout')?>">
+                            <a href="<?=site_url('auth/logout')?>">
                                 <i class="fa fa-sign-out fa-fw"></i>
                                 Logout
                             </a>
