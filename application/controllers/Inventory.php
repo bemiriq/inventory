@@ -39,26 +39,13 @@ class Inventory extends CI_Controller {
 		// the code below here is for the logout function 
 		$this->load->library('session');
 
-		//applying folowing the tutorial for session
-		print_r($this->session->all_userdata());
-		$this->session->set_userdata('username','Beckham');
-		$this->session->set_userdata('user_email','sandeshphuyalc@yahoo.com');
-		$this->session->set_userdata('login_attempt','3');
-		if (!$this->session->userdata('username')){
-			echo 'Not logged in ';
-		}
-		else {
-			echo 'Welcome';
-		}
-		//end of session
-
 		// end of the logout function code
 		$this->load->helper('form'); 
 		// $this->load->library('session');
 	   	$this->load->library('form_validation');
 	   	// $this->post->pop_room_type($data, 'room_type');
 	  	$this->form_validation->set_rules('username', 'username', 'trim|required|xss_clean');
-	   	$this->form_validation->set_rules('password', 'password', 'trim|required|xss_clean|callback_check_database');
+	   	$this->form_validation->set_rules('password', 'password', 'trim|required|xss_clean');
 
 		if($this->form_validation->run() == FALSE)
 		{
@@ -67,35 +54,25 @@ class Inventory extends CI_Controller {
 		    // echo 'incorrect password';
 		}
 		else
-		   {
+		{
+			$result = $this->loginModel->login($this->input->post('username'), $this->input->post('password'));
 
-		   }
+			if($result)
+			{
+				
+				$result = json_decode(json_encode($result),1);
+				$this->session->set_userdata($result);
+				redirect('inventory/dashboard');
+			}
+			else
+			{
+				echo '<p style="width: 300px; margin-right: auto; margin-left: auto; margin-top: 1%; color: #B22222"> Incorrect Username and Password </p>';
+				$this->load->view('login');
+			}
+		}
 		
 	}
 
-	 function check_database($password)
-	 {
-	   //Field validation succeeded.  Validate against database
-	   $username = $this->input->post('username');
-	   
-	   //query the database
-	   $result = $this->loginModel->login($username, $password);
-
-	   if($result)
-	   {
-		    foreach ($result as $result ) {
-		    redirect('inventory/dashboard');
-		    // $this->dashboard();
-		    $ucat = $result->name;
-		  	echo $ucat;
-		  	}
-	  	}
-	   else
-	   {
-	       echo '<p style="width: 300px; margin-right: auto; margin-left: auto; margin-top: 1%; color: #B22222"> Incorrect Username and Password </p>';
-	       $this->load->view('login');
-	   }
-	 }
 
 	public function header(){
 	 	$this->load->view('header');
@@ -107,6 +84,10 @@ class Inventory extends CI_Controller {
 
 	public function dashboard(){
 	 	$this->header();
+
+	 	$c=$this->session->all_userdata();
+print_r($c);
+
 	 	$data['action'] = ' Add';
 	 	$data['posts']=$this->transaction->get_table();
 	 	$this->load->view('admin/dashboard', $data);
