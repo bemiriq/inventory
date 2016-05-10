@@ -10,6 +10,7 @@ class Inventory extends CI_Controller
     {
         parent::__construct();
         //echo "FOUND MODEL";
+        // $this->load->library('session');
         $this->load->model('loginModel', '', TRUE);
         $this->load->model('productModel', 'product');
         // $this->load->model('supplierModel','supplier');
@@ -76,6 +77,7 @@ class Inventory extends CI_Controller
             }
             $this->product->add($data);
             $this->productLog->add($data);
+            echo $this->user->users_id();
             $this->session->set_flashdata('message', "Product added successfully");
             redirect('inventory/addProduct');
         } else {
@@ -84,6 +86,8 @@ class Inventory extends CI_Controller
             $this->load->view("admin/addEditProduct", $data);
             $this->footer();
         }
+//        echo $this->user->users_id;
+
     }
 
     public function addTransaction()
