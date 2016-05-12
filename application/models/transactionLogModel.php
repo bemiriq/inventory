@@ -24,6 +24,38 @@ class transactionLogModel extends CI_Model
         return array();
     }
 
+//     function get_report($limit = null)
+//     {
+//         if ($limit != null) {
+//             $this->db->limit($limit['limit'], $limit['offset']);
+//         }
+        
+//         $q = $this->db->query("SELECT `transaction`.`transaction_id`, ABS(`cost`) as cst,`transaction`.`date_posted`, ABS(`unit`) as unt, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`type`=`transaction`.`type` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id`");
+        
+// //        $q = $this->db->get($this->table);
+        
+//         if ($q->num_rows() > 0) {
+//             foreach ($q->result() as $row)
+//             {
+//                 $data[] = $row;
+//             }
+//         }
+//         return $data;
+//     }
+
+    public function get_report($segment,$per_page)
+    {
+        
+        // $data = array();
+
+        $q = $this->db->query('SELECT `transaction`.`transaction_id`, ABS(`cost`) as cst,`transaction`.`date_posted`, ABS(`unit`) as unt, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`type`=`transaction`.`type` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id` LIMIT '.$per_page.', '.$segment);
+
+        if ($q->num_rows() > 0) {
+            return $q->result();
+        }
+        return array();
+    }
+
     function countAll()
     {
         return $this->db->count_all($this->table);

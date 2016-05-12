@@ -21,31 +21,11 @@
                 <div class="col-lg-6">
                 
                     <form name="frmOne" id="contactForm" class="form-horizontal" action="" method="post">
-                            <!-- <div class="form-group">
-                                <label for="productName" style="color:#3fa9f5;" class="col-sm-4 control-label">Product Name</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" value="<?php echo isset($post)?$post->productName:''; ?>" name="transaction[productName]" id="get_names_product" placeholder="Enter product name">
-                                </div>
-                            </div> -->
-
-<!--                            <div class="form-group">-->
-<!--                                <label for="supplierName" style="color:#3fa9f5;" class="col-sm-4 control-label">Supplier Name</label>-->
-<!--                                <div class="col-sm-8">-->
-<!--                                    <input type="text" class="form-control" value="--><?php //echo isset($post)?$post->supplierName:''; ?><!--" name="transaction[supplierName]" id="get_names_supplier" placeholder="Enter supplier full name">-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-<!--                            <div class="form-group">-->
-<!--                                <label for="stockSell" style="color:#3fa9f5;" class="col-sm-4 control-label">Stock Sell</label>-->
-<!--                                <div class="col-sm-8">-->
-<!--                                    <input type="text" class="form-control" value="--><?php //echo isset($post)?$post->stockSell:''; ?><!--" name="transaction[stockSell]" id="stockSell" placeholder="Enter stock sold number">-->
-<!--                                </div>-->
-<!--                            </div>-->
 
                             <div class="form-group">
-                                <label for="name" style="color:#3fa9f5;" class="col-sm-4 control-label">S/B Name</label>
+                                <label for="name" style="color:#3fa9f5;" class="col-sm-3 control-label">S/B Name</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" value="<?php echo isset($post)?$post->name:''; ?>" name="transaction[name]" id="get_names_customer" placeholder="Enter customer full name">
+                                    <input type="text" class="form-control" value="<?php echo isset($post)?$post->detail_id:''; ?>" name="transaction[name]" id="get_names_customer" placeholder="Enter customer full name">
                                 </div>
                             </div>
 
@@ -75,7 +55,7 @@
                         </div>
 
                             <div class="form-group">
-                                <div class="col-sm-offset-9 col-sm-6">
+                                <div class="col-sm-offset-7 col-sm-6">
                                     <button type="submit" style="color:white; background:#3fa9f5;" value="Add Transaction" class="btn btn-default" >Submit</button>
                                 </div>
                             </div>

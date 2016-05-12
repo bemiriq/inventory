@@ -17,8 +17,11 @@ class Inventory extends CI_Controller
         // $this->load->model('customerModel','customer');
         $this->load->model('productNameModel', 'productName');
         $this->load->model('transactionModel', 'transaction');
+        $this->load->model('detailModel', 'detail');
         $this->load->model('productLogModel', 'productLog');
         $this->load->model('transactionLogModel', 'transactionLog');
+
+        $this->load->library('pagination');
 
         $this->user = (object)$this->session->all_userdata();
         if (empty($this->user->username)) {
@@ -61,29 +64,76 @@ class Inventory extends CI_Controller
     public function dashboard()
     {
         $this->header();
-        $data['action'] = ' Add';
         $data['posts'] = $this->transaction->get_table();
         $this->load->view('admin/dashboard', $data);
         $this->footer();
     }
 
-    public function reportTransaction()
-    {
+    // public function reportTransaction()
+    // {
+    //     $this->header();
+    //     $data['action'] = ' Report';
+    //     // $data['posts'] = $this->transactionLog->get_report();
+    //     $this->pagePagination();
+    //     // $this->load->view('admin/reportTransaction', $data);
+    //     $this->footer();
+    // }
+
+    public function reportTransaction(){
+        //pagination settings
+        $config['base_url'] = site_url('inventory/reportTransaction');
+        $config['total_rows'] = $this->transaction->countAll();
+        $config['per_page'] = 5;
+        $config["uri_segment"] = 3;
+        $choice = $config["total_rows"] / $config["per_page"];
+        $config["num_links"] = ceil($choice);
+
+        echo $config["num_links"];
+
+        //config for bootstrap pagination class integration
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = false;
+        $config['last_link'] = false;
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['prev_link'] = '&laquo';
+        $config['prev_tag_open'] = '<li class="prev">';
+        $config['prev_tag_close'] = '</li>';
+        $config['next_link'] = '&raquo';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a href="#">';
+        $config['cur_tag_close'] = '</a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+
+        $this->pagination->initialize($config);
+        $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+
+        echo $data['page'];
+
+        //call the model function to get the department data
+        $data['posts'] = $this->transactionLog->get_report($data['page'],$config['per_page']);
+        // $data['posts'] = $this->transactionLog->get_report();           
+        $data['pagination'] = $this->pagination->create_links();
+
+        print_r($data['posts']);
+        //load the department_view
         $this->header();
         $data['action'] = ' Report';
-        // $data['posts'] = $this->transaction->get_table();
-        $this->load->view('admin/reportTransaction', $data);
+        // $data['posts'] = $this->transactionLog->get_report();
+        // $this->load->view('admin/reportTransaction', $data);
         $this->footer();
+        $this->load->view('admin/reportTransaction', $data);
     }
 
     public function addProduct()
     {
         if ($data = $this->input->post('product')) {
             $data['date_posted'] = date('Y-m-d H:i:s');
-            if (isset($data['sum'])) {
-                $data['cost'] = $data['cost'] / $data['stockIn'];
-                unset($data['sum']);
-            }
             $data['users_id'] = $this->user->users_id;
             $this->product->add($data);
             $this->productLog->add($data);
@@ -102,14 +152,28 @@ class Inventory extends CI_Controller
 
     public function buyProduct()
     {
+
         if ($data = $this->input->post('buyproduct')) {
             $data['date_posted'] = date('Y-m-d H:i:s');
+
             if (isset($data['sum'])) {
                 $data['cost'] = $data['cost'] / $data['unit'];
                 unset($data['sum']);
             }
             $data['users_id'] = $this->user->users_id;
+
+            $data['product_id'] = $this->product->getId($data['productName'] );
+            unset($data['productName']);
+
+            $data['type'] = $this->product->getType($data['name'] );
+            // unset($data['name']);
+
+            $data['detail_id'] = $this->product->getType($data['name'] );
+            unset($data['name']);
+
             $this->transaction->add($data);
+            $this->transactionLog->add($data);
+            
 //            $this->productLog->add($data);
             $this->session->set_flashdata('message', "Product bought successfully");
             redirect('inventory/buyProduct');
@@ -126,15 +190,29 @@ class Inventory extends CI_Controller
 
     public function sellProduct()
     {
-        if ($data = $this->input->post('sellproduct')) {
+        if ($data = $this->input->post('sellProduct')) {
             $data['date_posted'] = date('Y-m-d H:i:s');
             if (isset($data['sum'])) {
                 $data['cost'] = $data['cost'] / $data['unit'];
                 unset($data['sum']);
             }
+            if (isset($data['unit'])) {
+                $data['unit'] = $data['unit'] * -1;
+            }
+            if (isset($data['cost'])) {
+                $data['cost'] = $data['cost'] * -1;
+            }
             $data['users_id'] = $this->user->users_id;
+            $data['product_id'] = $this->product->getId($data['productName'] );
+            unset($data['productName']);
+
+            $data['type'] = $this->product->getType($data['name'] );
+            // unset($data['name']);
+
+            $data['detail_id'] = $this->product->getType($data['name'] );
+            unset($data['name']);
             $this->transaction->add($data);
-//            $this->productLog->add($data);
+            $this->transactionLog->add($data);
             $this->session->set_flashdata('message', "Product sold successfully");
             redirect('inventory/sellProduct');
         } else {
@@ -149,26 +227,26 @@ class Inventory extends CI_Controller
     }
 
 
-    public function addTransaction()
-    {
-        if ($data = $this->input->post('transaction')) {
-            $data['date_posted'] = date('Y-m-d H:i:s');
-            if (isset($data['sum'])) {
-                $data['cost'] = $data['cost'] / $data['unit'];
-                unset($data['sum']);
-            }
-            $data['users_id'] = $this->user->users_id;
-            $this->transaction->add($data);
-//            $this->transactionLog->add($data);
-            $this->session->set_flashdata('message', "Transaction added successfully");
-            redirect('inventory/addTransaction');
-        } else {
-            $this->header();
-            $data['action'] = 'Add';
-            $this->load->view("admin/addEditTransaction", $data);
-            $this->footer();
-        }
-    }
+//     public function addTransaction()
+//     {
+//         if ($data = $this->input->post('transaction')) {
+//             $data['date_posted'] = date('Y-m-d H:i:s');
+//             if (isset($data['sum'])) {
+//                 $data['cost'] = $data['cost'] / $data['unit'];
+//                 unset($data['sum']);
+//             }
+//             $data['users_id'] = $this->user->users_id;
+//             $this->transaction->add($data);
+// //            $this->transactionLog->add($data);
+//             $this->session->set_flashdata('message', "Transaction added successfully");
+//             redirect('inventory/addTransaction');
+//         } else {
+//             $this->header();
+//             $data['action'] = 'Add';
+//             $this->load->view("admin/addEditTransaction", $data);
+//             $this->footer();
+//         }
+//     }
 
     public function viewProduct()
     {
@@ -220,6 +298,8 @@ class Inventory extends CI_Controller
     {
         $id = $this->uri->segment(3);
         $post = $this->transaction->getById($id);
+        // $data['name'] = $this->product->getName($data['detail_id'] );
+        // unset($data['detail_id']);
 
         if ($data = $this->input->post('transaction')) {
             // $this->load->view('header');
@@ -231,8 +311,15 @@ class Inventory extends CI_Controller
             }
             $data['date_posted'] = date('Y-m-d H:i:s');
             $data['users_id'] = $this->user->users_id;
+
+            // $data['product_id'] = $this->product->getId($data['productName'] );
+            // unset($data['productName']);
+
+            $data['detail_id'] = $this->product->getType($data['name'] );
+            unset($data['name']);
+
             $this->transaction->update($data, $id);
-//            $this->transactionLog->add($data);
+            $this->transactionLog->add($data);
             $this->session->set_flashdata('message', "Transaction updated successfully");
             redirect("inventory/viewTransaction");
             // echo '2';
@@ -248,22 +335,44 @@ class Inventory extends CI_Controller
 
     function deleteProduct()
     {
+        $id = $this->uri->segment(3);
+        $post = $this->product->getById($id);
+        if ($data = $this->input->post('deleteP')) {
+            // $this->load->view('header');
+            // $this->load->view('footer');
+            $data = $_POST['deleteP'];
+            $data['users_id'] = $this->user->users_id;
+            // var_dump($data);
+            $this->product->deleted($data, $id);
+            $this->session->set_flashdata('message', "Product deleted successfully");
+            redirect("inventory/viewProduct");
+        }
+        // $this->product->delete($data, $id);
         $this->header();
         $this->footer();
-        $id = $this->uri->segment(3);
-        $this->product->delete($id);
-        $this->session->set_flashdata('message', "Product deleted successfully");
-        redirect("inventory/viewProduct");
+        // $this->session->set_flashdata('message', "Product deleted successfully");
+        redirect("admin/viewProduct");
     }
 
     function deleteTransaction()
     {
+        $id = $this->uri->segment(3);
+        $post = $this->transaction->getById($id);
+        if ($data = $this->input->post('deleteT')) {
+            // $this->load->view('header');
+            // $this->load->view('footer');
+            $data = $_POST['deleteT'];
+            $data['users_id'] = $this->user->users_id;
+            // var_dump($data);
+            $this->transaction->deleted($data, $id);
+            $this->session->set_flashdata('message', "Transaction deleted successfully");
+            redirect("inventory/viewTransaction");
+        }
+        // $this->product->delete($data, $id);
         $this->header();
         $this->footer();
-        $id = $this->uri->segment(3);
-        $this->transaction->delete($id);
-        $this->session->set_flashdata('message', "Transaction deleted successfully");
-        redirect("inventory/viewTransaction");
+        $this->session->set_flashdata('message', "Product deleted successfully");
+        redirect("admin/viewTransaction");
     }
 
 

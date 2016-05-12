@@ -25,7 +25,11 @@
                            <td><?=$post->productName?></td>
                            <td><?=$post->date_posted?></td>
                            <td><a href="<?=site_url("inventory/editProduct/".$post->product_id)?>">edit</a> </td>
-                           <td> <a href="<?=site_url("inventory/deleteProduct/".$post->product_id)?>" onclick="return confirm('Do you realy want to delete this product ?'); " >delete</a></td>
+                           <form action="<?=site_url("inventory/deleteProduct/".$post->product_id)?>" method="post">
+                            <input type="hidden" value="1" class="form-control" name="deleteP[deleteProduct]">
+                            <td> <button type="submit" style="color:white; background:#3fa9f5;" onclick="return confirm('Do you realy want to delete this product ?'); " class="btn btn-default" >Delete</button> </td>
+                              <!-- <td> <a href="<?=site_url("inventory/deleteProduct/".$post->product_id)?>" onclick="return confirm('Do you realy want to delete this product ?'); " value="1" name="deleteP[deleteProduct]">delete</a></td> -->
+                            </form>
                         </tr>
                         <?php $i++; endforeach; ?>
                      </tbody>

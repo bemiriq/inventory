@@ -147,19 +147,7 @@
                         </li>
 
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Transaction<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?=site_url('inventory/reportTransaction')?>">Transaction Report</a>
-                                </li>
-                                <!-- <li>
-                                    <a href="<?=site_url('inventory/search')?>">Create Transaction</a>
-                                </li> -->
-                                <!-- <li>
-                                    <a href="<?=site_url('inventory/viewTransaction')?>">Update & Delete Transaction</a>
-                                </li> -->
-                            </ul>
-                            <!-- /.nav-second-level -->
+                            <a href="<?=site_url('inventory/reportTransaction')?>">Transaction Report</a>
                         </li>
                         </li>
                     </ul>

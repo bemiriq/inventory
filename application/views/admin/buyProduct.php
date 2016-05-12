@@ -25,7 +25,7 @@
                 <div class="form-group">
                     <label for="name" style="color:#3fa9f5;" class="col-sm-3 control-label">Product Name</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" value="<?php echo isset($post)?$post->productName:''; ?>" name="sellProduct[productName]" id="get_names_product" placeholder="Enter product full name">
+                        <input type="text" class="form-control" value="<?php echo isset($post)?$post->productName:''; ?>" name="buyproduct[productName]" id="get_names_product" placeholder="Enter product full name">
                     </div>
                 </div>
 

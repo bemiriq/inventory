@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name" style="color:#3fa9f5;" class="col-sm-3 control-label">Buyer Name</label>
+                    <label for="name" style="color:#3fa9f5;" class="col-sm-3 control-label">Seller Name</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" value="<?php echo isset($post)?$post->name:''; ?>" name="sellProduct[name]" id="get_names_supplier" placeholder="Enter customer full name">
                     </div>

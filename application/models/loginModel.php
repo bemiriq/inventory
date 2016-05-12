@@ -16,10 +16,13 @@ class loginModel extends CI_Model
         if ($query->num_rows() == 1) {
             return (array)$query->row();
             //echo 'Now it consists the home page function';
-        } else false;
+        } 
+        else
         {
             return false;
         }
+
+
     }
 
 

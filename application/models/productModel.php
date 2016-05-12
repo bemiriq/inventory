@@ -19,7 +19,9 @@ class productModel extends CI_Model
         }
         // SELECT `productName`, `cost`,`date_posted` , sum(`stockIn`) from product group by `productName`
 //        $getData = $this->db->query("SELECT `product_id`,`productName`, `cost`,`date_posted` , sum(`stockIn`) as total from product group by `productName`");
-        $getData = $this->db->get($this->table);
+//        $getData = $this->db->query("SELECT `transaction`.`cost`,`transaction`.`date_posted`, `transaction`.`unit`, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`type`=`transaction`.`type` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id`");
+       $getData = $this->db->query("SELECT `product_id`,`productName`,`date_posted` FROM `product` WHERE `deleteProduct` = '0'");
+       // $getData = $this->db->get($this->table);
         // $getData = $this->db->get($this->table);
         // $q = $this->db->get($this->table);
         if ($getData->num_rows() > 0) {
@@ -53,11 +55,17 @@ class productModel extends CI_Model
     }
 
 
-    function delete($id)
+    function deleted($data, $id)
     {
         $this->db->where("product_id", $id);
-        $this->db->delete($this->table);
+        $this->db->update($this->table, $data);
     }
+
+    // function delete($id)
+    // {
+    //     $this->db->where("product_id", $id);
+    //     $this->db->delete($this->table);
+    // }
 
     function dashboard3()
     {
@@ -94,7 +102,7 @@ class productModel extends CI_Model
     // select * from product order by `product_id` desc limit 15
     function get_name_product($q)
     {
-        $q = $this->db->query("SELECT distinct `productName` FROM `product`");
+        $q = $this->db->query("SELECT distinct `productName` FROM `product` where `deleteProduct` = '0' ");
         // $this->db->select('productName')->from('transaction');
         // $q = $this->db->get();
         if ($q->num_rows() > 0) {
@@ -102,6 +110,59 @@ class productModel extends CI_Model
                 $row_set[] = htmlentities(stripslashes($row['productName'])); //build an array
             }
             echo json_encode($row_set); //format the array into json data
+        }
+    }
+
+    public function getId($value)
+    {
+        $this->db->select('product_id');
+        $this->db->from('product');
+        $this->db->where('productName', $value);
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+
+        if ($query->num_rows() == 1) {
+            $row = (array)$query->row();
+            return $row['product_id'];
+            //echo 'Now it consists the home page function';
+        } 
+        else
+        {
+            $data=array('productName' => $value);
+            $data['date_posted'] = date('Y-m-d H:i:s');
+            // $data['users_id'] = $this->user->users_id; // user ko id
+
+            $this->add($data);
+            return $this->getId($value);
+
+        }
+    }
+
+    public function getType($type)
+    {
+        $this->db->select('type','detail_id');
+        $this->db->from('detail');
+        $this->db->where('name', $type);
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+
+        if ($query->num_rows() == 1) {
+            $row = (array)$query->row();
+            return $row['type'];
+            return $row['detail_id'];
+            //echo 'Now it consists the home page function';
+        } 
+        else
+        {
+            $data=array('name' => $type);
+            $data['date_posted'] = date('Y-m-d H:i:s');
+            // $data['users_id'] = $this->user->users_id; // user ko id
+
+            $this->add($data);
+            return $this->getType($type);
+
         }
     }
 

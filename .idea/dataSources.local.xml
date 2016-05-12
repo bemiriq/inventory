@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - inventory@localhost" uuid="2d6be6e9-d5ef-4923-997e-41a7c8a78a7f">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>inventory.*</schema-pattern>
+      <default-schemas>inventory.*</default-schemas>
+    </data-source>
+  </component>
+</project>
