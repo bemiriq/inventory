@@ -9,6 +9,10 @@ class productModel extends CI_Model
     function __construct()
     {
         parent::__construct();
+        $this->user = (object)$this->session->all_userdata();
+        if (empty($this->user->username)) {
+            redirect('auth/login');
+        }
         // $this->table = 'postmenu';
     }
 
@@ -126,42 +130,16 @@ class productModel extends CI_Model
             $row = (array)$query->row();
             return $row['product_id'];
             //echo 'Now it consists the home page function';
-        } 
+        }
         else
         {
             $data=array('productName' => $value);
+            $data['users_id'] = $this->user->users_id;
             $data['date_posted'] = date('Y-m-d H:i:s');
             // $data['users_id'] = $this->user->users_id; // user ko id
 
             $this->add($data);
             return $this->getId($value);
-
-        }
-    }
-
-    public function getType($type)
-    {
-        $this->db->select('type','detail_id');
-        $this->db->from('detail');
-        $this->db->where('name', $type);
-        $this->db->limit(1);
-
-        $query = $this->db->get();
-
-        if ($query->num_rows() == 1) {
-            $row = (array)$query->row();
-            return $row['type'];
-            return $row['detail_id'];
-            //echo 'Now it consists the home page function';
-        } 
-        else
-        {
-            $data=array('name' => $type);
-            $data['date_posted'] = date('Y-m-d H:i:s');
-            // $data['users_id'] = $this->user->users_id; // user ko id
-
-            $this->add($data);
-            return $this->getType($type);
 
         }
     }

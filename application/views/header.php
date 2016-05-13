@@ -124,9 +124,9 @@
                         <li>
                             <a href="#"><i class="fa fa-table fa-fw"></i> Product<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?=site_url('inventory/addProduct')?>">Add Product Name</a>
-                                </li>
+<!--                                <li>-->
+<!--                                    <a href="--><?//=site_url('inventory/addProduct')?><!--">Add Product Name</a>-->
+<!--                                </li>-->
                                 <li>
                                     <a href="<?=site_url('inventory/buyProduct')?>">Buy Product</a>
                                 </li>

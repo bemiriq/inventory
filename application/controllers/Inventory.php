@@ -160,20 +160,30 @@ class Inventory extends CI_Controller
                 $data['cost'] = $data['cost'] / $data['unit'];
                 unset($data['sum']);
             }
+
             $data['users_id'] = $this->user->users_id;
 
             $data['product_id'] = $this->product->getId($data['productName'] );
             unset($data['productName']);
 
-            $data['type'] = $this->product->getType($data['name'] );
-            // unset($data['name']);
-
-            $data['detail_id'] = $this->product->getType($data['name'] );
+            $data['type'] = $this->detail->getType($data['name'] );
+            $data['detail_id'] = $this->detail->getDetail($data['name'] );
             unset($data['name']);
+
+//            if ($name = $this->input->post('buyproduct')) {
+//                $name['date_posted'] = date('Y-m-d H:i:s');
+//                $name['users_id'] = $this->user->users_id;
+//                unset($name['productName']);
+//                unset($name['unit']);
+//                unset($name['cost']);
+//                $this->detail->add($name);
+//
+//                //$name['type'] = $this->product->getType($name['name'] );
+//            }
 
             $this->transaction->add($data);
             $this->transactionLog->add($data);
-            
+
 //            $this->productLog->add($data);
             $this->session->set_flashdata('message', "Product bought successfully");
             redirect('inventory/buyProduct');
@@ -203,14 +213,14 @@ class Inventory extends CI_Controller
                 $data['cost'] = $data['cost'] * -1;
             }
             $data['users_id'] = $this->user->users_id;
+
             $data['product_id'] = $this->product->getId($data['productName'] );
             unset($data['productName']);
 
-            $data['type'] = $this->product->getType($data['name'] );
-            // unset($data['name']);
-
-            $data['detail_id'] = $this->product->getType($data['name'] );
+            $data['type'] = $this->detail->getSellType($data['name'] );
+            $data['detail_id'] = $this->detail->getDetail($data['name'] );
             unset($data['name']);
+
             $this->transaction->add($data);
             $this->transactionLog->add($data);
             $this->session->set_flashdata('message', "Product sold successfully");

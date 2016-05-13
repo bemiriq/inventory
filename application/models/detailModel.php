@@ -9,6 +9,10 @@ class detailModel extends CI_Model
     function __construct()
     {
         parent::__construct();
+        $this->user = (object)$this->session->all_userdata();
+        if (empty($this->user->username)) {
+            redirect('auth/login');
+        }
         // $this->table = 'postmenu';
     }
 
@@ -29,9 +33,9 @@ class detailModel extends CI_Model
         return $this->db->count_all($this->table);
     }
 
-    function add($data)
+    function add($name)
     {
-        $this->db->insert($this->table, $data);
+        $this->db->insert($this->table, $name);
     }
 
     function update($data, $id)
@@ -80,6 +84,88 @@ class detailModel extends CI_Model
         return false;
     }
 
+    public function getType($type)
+    {
+        $this->db->select('type');
+        $this->db->from('detail');
+        $this->db->where('name', $type);
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+
+        if ($query->num_rows() == 1) {
+            $row = (array)$query->row();
+//            return $row['type'];
+            return $row['type'];
+            //echo 'Now it consists the home page function';
+        }
+        else
+        {
+            $data=array('name' => $type);
+            $data['type'] = '2';
+            $data['date_posted'] = date('Y-m-d H:i:s');
+            $data['users_id'] = $this->user->users_id; // user ko id
+
+            $this->add($data);
+            return $this->getType($type);
+
+        }
+    }
+
+    public function getSellType($type)
+    {
+        $this->db->select('type');
+        $this->db->from('detail');
+        $this->db->where('name', $type);
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+
+        if ($query->num_rows() == 1) {
+            $row = (array)$query->row();
+//            return $row['type'];
+            return $row['type'];
+            //echo 'Now it consists the home page function';
+        }
+        else
+        {
+            $data=array('name' => $type);
+            $data['type'] = '1';
+            $data['date_posted'] = date('Y-m-d H:i:s');
+            $data['users_id'] = $this->user->users_id; // user ko id
+
+            $this->add($data);
+            return $this->getSellType($type);
+
+        }
+    }
+
+    public function getDetail($detail)
+    {
+        $this->db->select('detail_id');
+        $this->db->from('detail');
+        $this->db->where('name', $detail);
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+
+        if ($query->num_rows() == 1) {
+            $row = (array)$query->row();
+//            return $row['type'];
+            return $row['detail_id'];
+            //echo 'Now it consists the home page function';
+        }
+        else
+        {
+            $data=array('name' => $detail);
+            $data['date_posted'] = date('Y-m-d H:i:s');
+            $data['users_id'] = $this->user->users_id; // user ko id
+
+            $this->add($data);
+            return $this->getType($detail);
+
+        }
+    }
 
 }
 
