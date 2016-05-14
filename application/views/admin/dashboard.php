@@ -16,7 +16,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">
-                                        <!--  <?php $this->product->dashboard4() ?> -->
+                                        <?php $this->product->dashboard1() ?>
                                     </div>
                                     <div>Total Transaction</div>
                                 </div>
@@ -34,7 +34,7 @@
                                 <div class="col-xs-9 text-right">
                                     
                                     <div class="huge">
-                                        <!--  <?php $this->product->dashboard4() ?> -->
+                                        <?php $this->product->dashboard2() ?>
                                     </div>
                                     
                                     <div>Highest Transaction</div>
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">
-                                        <!--  <?php $this->product->dashboard4() ?> -->
+                                        <?php $this->product->dashboard3() ?>
                                        
                                     </div>
                                     <div>Total Products</div>
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">
-                                       <!--  <?php $this->product->dashboard4() ?> -->
+                                       <?php $this->product->dashboard4() ?>
                                     </div>
                                     <div>Total Users</div>
                                 </div>
@@ -90,7 +90,8 @@
                   <table class="table tablesorter table-bordered table-hover table-striped sortable">
                      <thead>
                         <tr>
-                           <th>Type</th>
+                           <th>Name</th>
+                            <th>Product Name</th>
                            <th>Unit</th>
                            <th>Cost</th>
                            <th>Date Posted</th>
@@ -100,9 +101,10 @@
                        <?php $i=1; foreach($posts as $post): ?>
                         <tr <?=($i % 2 == 0) ? 'class="even"' : '' ?> >
                            <!-- <td><?=$post->name?></td> -->
-                           <td>1</td>
-                           <td><?=$post->unit?></td>
-                           <td><?=$post->cost?></td>
+                           <td><?=$post->sam?></td>
+                            <td><?=$post->pam?></td>
+                           <td><?=$post->unt?></td>
+                           <td><?=$post->cst?></td>
                            <td><?=$post->date_posted?></td>
                            <!-- <td><?=$post->stock_remain?></td>
                            <td><?=$post->date_posted?></td> -->

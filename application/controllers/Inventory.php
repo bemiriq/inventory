@@ -64,31 +64,27 @@ class Inventory extends CI_Controller
     public function dashboard()
     {
         $this->header();
-        $data['posts'] = $this->transaction->get_table();
+        $data['posts'] = $this->transaction->get_front_table();
         $this->load->view('admin/dashboard', $data);
         $this->footer();
     }
 
-    // public function reportTransaction()
-    // {
-    //     $this->header();
-    //     $data['action'] = ' Report';
-    //     // $data['posts'] = $this->transactionLog->get_report();
-    //     $this->pagePagination();
-    //     // $this->load->view('admin/reportTransaction', $data);
-    //     $this->footer();
-    // }
 
     public function reportTransaction(){
         //pagination settings
         $config['base_url'] = site_url('inventory/reportTransaction');
+        $page = $this->uri->segment(3);
+        if(is_null($page))
+        {
+            redirect($config['base_url'].'/1');
+        }
         $config['total_rows'] = $this->transaction->countAll();
-        $config['per_page'] = 5;
+        $config['per_page'] = 10;
         $config["uri_segment"] = 3;
         $choice = $config["total_rows"] / $config["per_page"];
         $config["num_links"] = ceil($choice);
 
-        echo $config["num_links"];
+//        echo $config["num_links"];
 
         //config for bootstrap pagination class integration
         $config['full_tag_open'] = '<ul class="pagination">';
@@ -111,16 +107,16 @@ class Inventory extends CI_Controller
         $config['num_tag_close'] = '</li>';
 
         $this->pagination->initialize($config);
-        $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 1;
 
-        echo $data['page'];
+//        echo $data['page'];
 
         //call the model function to get the department data
         $data['posts'] = $this->transactionLog->get_report($data['page'],$config['per_page']);
         // $data['posts'] = $this->transactionLog->get_report();           
         $data['pagination'] = $this->pagination->create_links();
 
-        print_r($data['posts']);
+//        print_r($data['posts']);
         //load the department_view
         $this->header();
         $data['action'] = ' Report';
@@ -231,32 +227,9 @@ class Inventory extends CI_Controller
             $this->load->view("admin/sellProduct", $data);
             $this->footer();
         }
-//        $q = $this->user->users_id;
-//        echo $q;
 
     }
 
-
-//     public function addTransaction()
-//     {
-//         if ($data = $this->input->post('transaction')) {
-//             $data['date_posted'] = date('Y-m-d H:i:s');
-//             if (isset($data['sum'])) {
-//                 $data['cost'] = $data['cost'] / $data['unit'];
-//                 unset($data['sum']);
-//             }
-//             $data['users_id'] = $this->user->users_id;
-//             $this->transaction->add($data);
-// //            $this->transactionLog->add($data);
-//             $this->session->set_flashdata('message', "Transaction added successfully");
-//             redirect('inventory/addTransaction');
-//         } else {
-//             $this->header();
-//             $data['action'] = 'Add';
-//             $this->load->view("admin/addEditTransaction", $data);
-//             $this->footer();
-//         }
-//     }
 
     public function viewProduct()
     {
@@ -325,8 +298,8 @@ class Inventory extends CI_Controller
             // $data['product_id'] = $this->product->getId($data['productName'] );
             // unset($data['productName']);
 
-            $data['detail_id'] = $this->product->getType($data['name'] );
-            unset($data['name']);
+//            $data['detail_id'] = $this->detail->getType($data['name'] );
+//            unset($data['name']);
 
             $this->transaction->update($data, $id);
             $this->transactionLog->add($data);

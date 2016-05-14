@@ -71,12 +71,34 @@ class productModel extends CI_Model
     //     $this->db->delete($this->table);
     // }
 
-    function dashboard3()
+    function dashboard1()
     {
-        $query = $this->db->query("SELECT sum(`stockIn`) as total from product");
+        $query = $this->db->query("SELECT `transaction_id` FROM transaction ORDER BY `transaction_id` DESC LIMIT 1");
+        if ($query->num_rows()) {
+            foreach ($query->result() as $row) {
+                echo $row->transaction_id;
+            }
+
+        }
+    }
+
+    function dashboard2()
+    {
+        $query = $this->db->query("SELECT MAX(`unit`) as total FROM transaction");
         if ($query->num_rows()) {
             foreach ($query->result() as $row) {
                 echo $row->total;
+            }
+
+        }
+    }
+
+    function dashboard3()
+    {
+        $query = $this->db->query("SELECT `product_id` FROM `product` ORDER BY `product_id` DESC LIMIT 1");
+        if ($query->num_rows()) {
+            foreach ($query->result() as $row) {
+                echo $row->product_id;
             }
 
         }

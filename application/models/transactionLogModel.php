@@ -48,7 +48,7 @@ class transactionLogModel extends CI_Model
         
         // $data = array();
 
-        $q = $this->db->query('SELECT `transaction`.`transaction_id`, ABS(`cost`) as cst,`transaction`.`date_posted`, ABS(`unit`) as unt, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`type`=`transaction`.`type` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id` LIMIT '.$per_page.', '.$segment);
+        $q = $this->db->query('SELECT `transaction`.`transaction_id`, ABS(`cost`) as cst,`transaction`.`date_posted`, ABS(`unit`) as unt, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`type`=`transaction`.`type` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id` LIMIT '.$segment.', '.$per_page);
 
         if ($q->num_rows() > 0) {
             return $q->result();
@@ -89,7 +89,7 @@ class transactionLogModel extends CI_Model
 
     function dashboard3()
     {
-        $query = $this->db->query("SELECT`transactionLog_id` FROM `navigation` order by transactionLog_id desc limit 1");
+        $query = $this->db->query("SELECT`transactionLog_id` FROM `transaction` order by transaction_id desc limit 1");
         if ($query->num_rows()) {
             foreach ($query->result() as $row) {
                 echo $row->transactionLog_id;
@@ -107,6 +107,29 @@ class transactionLogModel extends CI_Model
         }
         return false;
     }
+
+    public function reporttable(){
+
+        if(@$_POST['date_posted'])
+        {
+            $dateposted=$_POST['date_posted'];
+            // $SP=mysql_real_escape_string($categoryname);
+            $query = $this->db->query("SELECT `transaction`.`transaction_id`, ABS(`cost`) as cst,`transaction`.`date_posted`, ABS(`unit`) as unt, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`type`=`transaction`.`type` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id`  where date_posted = '$dateposted'");
+
+            if($query->num_rows()){
+                foreach ($query->result() as $row)
+                {
+                    echo '<tr><td>'. $row->cst .'</td>'.'<td>'. $row->date_posted  .'</td>'.'<td>' . $row->unt .'</td>'.'<td>'. $row->sam .'</td>'.'<td>'.  $row->pam .'</td>'.'<td>'. $row->type.'</td></tr>';
+                }
+
+            }
+            else{
+                echo '<hr><p style="color:#3fa9f5;">'. "Lately there are no transactions on those days." .'</p><hr>';
+            }
+        }
+    }
+
+
 
 }
 
