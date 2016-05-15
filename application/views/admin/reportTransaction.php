@@ -8,22 +8,20 @@
             <br>
             <form method="post">
                 <div class="row">
-                    <?php foreach($posts as $post){?>
-
                         <div class="form-group col-md-3">
                             <label for="exampleInputDate1" style="color:#337AB7">From</label>
-                            <input type="date" value="" class="form-control" name=date_posted" id="datepicker">
+                            <input type="date" class="form-control" name="date_posted[]" id="datepicker1">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="exampleInputDate1" style="color:#337AB7">To</label>
-                            <input type="date" value="" name="date_posted" class="form-control" id="datepicker">
+                            <input type="date" name="date_posted[]" class="form-control" id="datepicker2">
                         </div>
                         <br>
                         <div class="form-group col-md-3">
                             <button type="submit" class="btn btn-info">Submit</button>
                         </div>
-                        <?php }?>
                 </div>
+            </form>
                 <br>
                   <div class="table-responsive">
                       <table class="table tablesorter table-bordered table-hover table-striped sortable">
@@ -70,4 +68,4 @@
                       </div>
                   </div>
                 </div>
-            </form>
+

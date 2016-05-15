@@ -123,7 +123,16 @@ class Inventory extends CI_Controller
         // $data['posts'] = $this->transactionLog->get_report();
         // $this->load->view('admin/reportTransaction', $data);
         $this->footer();
+        $this->cmsmodel();
         $this->load->view('admin/reportTransaction', $data);
+    }
+
+    function cmsmodel()
+    {
+        // $data['posts']=$this->post1->getall();
+        $data = array(
+            'dateposted' => $this->input->post('date_posted')
+        );
     }
 
     public function addProduct()
@@ -298,8 +307,8 @@ class Inventory extends CI_Controller
             // $data['product_id'] = $this->product->getId($data['productName'] );
             // unset($data['productName']);
 
-//            $data['detail_id'] = $this->detail->getType($data['name'] );
-//            unset($data['name']);
+            $data['detail_id'] = $this->detail->getType($data['name'] );
+            unset($data['name']);
 
             $this->transaction->update($data, $id);
             $this->transactionLog->add($data);

@@ -18,7 +18,7 @@ class transactionModel extends CI_Model
             $this->db->limit($limit['limit'], $limit['offset']);
         }
         
-        $q = $this->db->query("SELECT `transaction`.`transaction_id`,ABS(`cost`) as cst,`transaction`.`date_posted`, ABS(`unit`) as unt, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`type`=`transaction`.`type` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id` WHERE `deleteTransaction` = '0'");
+        $q = $this->db->query("SELECT `transaction`.`transaction_id`,ABS(`cost`) as cst,`transaction`.`date_posted`, ABS(`unit`) as unt, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`detail_id`=`transaction`.`detail_id` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id` WHERE `deleteTransaction` = '0'");
         
 //        $q = $this->db->get($this->table);
         
@@ -64,7 +64,7 @@ class transactionModel extends CI_Model
             $this->db->limit($limit['limit'], $limit['offset']);
         }
         
-        $q = $this->db->query("SELECT `transaction`.`transaction_id`,`transaction`.`cost`,`transaction`.`date_posted`, `transaction`.`unit`, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`type`=`transaction`.`type` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id`");
+        $q = $this->db->query("SELECT transaction_id,ABS(`cost`) as cst,`transaction`.`date_posted`, ABS(`unit`) as unt, `transaction`.`product_id`, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`detail_id`=`transaction`.`detail_id` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id` WHERE deleteTransaction = '0'");
         
 //        $q = $this->db->get($this->table);
         

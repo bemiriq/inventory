@@ -45,10 +45,10 @@ class transactionLogModel extends CI_Model
 
     public function get_report($segment,$per_page)
     {
-        
+
         // $data = array();
 
-        $q = $this->db->query('SELECT `transaction`.`transaction_id`, ABS(`cost`) as cst,`transaction`.`date_posted`, ABS(`unit`) as unt, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`type`=`transaction`.`type` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id` LIMIT '.$segment.', '.$per_page);
+        $q = $this->db->query('SELECT transaction_id,ABS(`cost`) as cst,`transaction`.`date_posted`, ABS(`unit`) as unt, `transaction`.`product_id`, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`detail_id`=`transaction`.`detail_id` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id` WHERE deleteTransaction = 0 LIMIT '.$segment.', '.$per_page);
 
         if ($q->num_rows() > 0) {
             return $q->result();
@@ -110,16 +110,24 @@ class transactionLogModel extends CI_Model
 
     public function reporttable(){
 
-        if(@$_POST['date_posted'])
+        if ($data = $this->input->post('date_posted'))
         {
-            $dateposted=$_POST['date_posted'];
+            $dateposted1=$_POST['date_posted'][0];
+            $dateposted2=$_POST['date_posted'][1];
             // $SP=mysql_real_escape_string($categoryname);
-            $query = $this->db->query("SELECT `transaction`.`transaction_id`, ABS(`cost`) as cst,`transaction`.`date_posted`, ABS(`unit`) as unt, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`type`=`transaction`.`type` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id`  where date_posted = '$dateposted'");
+            $query = $this->db->query("SELECT transaction_id,ABS(`cost`) as cst,`transaction`.`date_posted`, ABS(`unit`) as unt, `transaction`.`product_id`, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`detail_id`=`transaction`.`detail_id` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id` WHERE `transaction`.`date_posted` BETWEEN '$dateposted1' AND '$dateposted2'");
 
             if($query->num_rows()){
                 foreach ($query->result() as $row)
                 {
-                    echo '<tr><td>'. $row->cst .'</td>'.'<td>'. $row->date_posted  .'</td>'.'<td>' . $row->unt .'</td>'.'<td>'. $row->sam .'</td>'.'<td>'.  $row->pam .'</td>'.'<td>'. $row->type.'</td></tr>';
+                    if($row->type === '1'){
+                       $type = 'Seller';
+                    }
+                    else{
+                        $type = 'Buyer';
+                    }
+
+                   echo '<tr><td>'. $row->sam .'</td>'.'<td>'.$type .'</td>'.'<td>' . $row->pam .'</td>'.'<td>'. $row->unt .'</td>'.'<td>'.  $row->cst .'</td>'.'<td>'. $row->date_posted.'</td></tr>';
                 }
 
             }
