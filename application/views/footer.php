@@ -42,7 +42,7 @@
     <!-- start of script for bootstrap validation -->
         <script type="text/javascript">
           $(document).ready(function() {
-            $('#contactForm').bootstrapValidator({
+            $('#buyContactForm').bootstrapValidator({
                 container: '#messages',
                 feedbackIcons: {
                     valid: 'glyphicon glyphicon-ok',
@@ -50,14 +50,21 @@
                     validating: 'glyphicon glyphicon-refresh'
                 },
                 fields: {
-                    'product[productName]' : {
+                    'buyproduct[productName]' : {
                         validators: {
                             notEmpty: {
-                                message: 'The full name is required and cannot be empty'
+                                message: 'Product name is required and cannot be empty'
                             }
                         }
                     },
-                    'product[stockIn]': {
+                    'buyproduct[name]' : {
+                        validators: {
+                            notEmpty: {
+                                message: 'Full name is required and cannot be empty'
+                            }
+                        }
+                    },
+                    'buyproduct[stockIn]': {
                         validators: {
                             notEmpty: {
                                 message: 'Added product field must not be empty'
@@ -70,90 +77,111 @@
                                 }
                         }
                     },
-                    'product[cost]': {
+                    'buyproduct[unit]': {
                         validators: {
                             notEmpty: {
-                                message: 'Product cost field must not be empty'
-                            },
-                        }
-                    },
-                    'transaction[cost]': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Transaction cost field must not be empty'
+                                message: 'Unit field must not be empty'
                             },
                             integer: {
-                                    message: 'Transaction cost value is not an integer',
+                                    message: 'Unit value is not an integer',
                                     // The default separators
                                     thousandsSeparator: '',
                                     decimalSeparator: '.'
                                 }
                         }
                     },
-                    'transaction[productName]': {
+                    'buyproduct[cost]': {
                         validators: {
                             notEmpty: {
-                                message: 'Product Name field must not be empty'
-                            },
-                        }
-                    },
-                    'transaction[supplierName]': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Supplier Name field must not be empty'
+                                message: 'Product Cost field must not be empty'
                             },
                             integer: {
-                                    message: 'Transaction cost value is not an integer',
-                                    // The default separators
-                                    thousandsSeparator: '',
-                                    decimalSeparator: '.'
-                                }
-                        }
-                    },
-                    'transaction[stockSell]': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Stock Sell field must not be empty'
-                            },
-                            integer: {
-                                    message: 'Stock Sell value is not an integer',
-                                    // The default separators
-                                    thousandsSeparator: '',
-                                    decimalSeparator: '.'
-                                }
-                        }
-                    },
-                    'transaction[supplierName]': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Supplier Name field must not be empty'
-                            },
-                        }
-                    },
-                    'transaction[customerName]': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Customer Name field must not be empty'
-                            },
-                        }
-                    },
-                    'transaction[totalStockBuy]': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Stock bought field must not be empty'
-                            },
-                            integer: {
-                                    message: 'Stock Bought value is not an integer',
-                                    // The default separators
-                                    thousandsSeparator: '',
-                                    decimalSeparator: '.'
-                                }
+                                message: 'Product Cost value is not an integer',
+                                // The default separators
+                                thousandsSeparator: '',
+                                decimalSeparator: '.'
+                            }
                         }
                     },
                 }
             });
         });
         </script>
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#sellContactForm').bootstrapValidator({
+                container: '#messages',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    'sellProduct[productName]' : {
+                        validators: {
+                            notEmpty: {
+                                message: 'Product name is required and cannot be empty'
+                            }
+                        }
+                    },
+                    'sellProduct[name]' : {
+                        validators: {
+                            notEmpty: {
+                                message: 'Full name is required and cannot be empty'
+                            }
+                        }
+                    },
+                    'sellProduct[stockIn]': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Added product field must not be empty'
+                            },
+                            integer: {
+                                message: 'Product Added value is not an integer',
+                                // The default separators
+                                thousandsSeparator: '',
+                                decimalSeparator: '.'
+                            }
+                        }
+                    },
+                    'sellProduct[cost]': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Product cost field must not be empty'
+                            },
+                        }
+                    },
+                    'sellProduct[unit]': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Unit field must not be empty'
+                            },
+                            integer: {
+                                message: 'Unit value is not an integer',
+                                // The default separators
+                                thousandsSeparator: '',
+                                decimalSeparator: '.'
+                            }
+                        }
+                    },
+                    'buyproduct[cost]': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Product Cost field must not be empty'
+                            },
+                            integer: {
+                                message: 'Product Cost value is not an integer',
+                                // The default separators
+                                thousandsSeparator: '',
+                                decimalSeparator: '.'
+                            }
+                        }
+                    },
+                }
+            });
+        });
+    </script>
     <!-- end of bootstrap validation -->
 
     
