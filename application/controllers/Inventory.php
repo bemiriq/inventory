@@ -18,6 +18,7 @@ class Inventory extends CI_Controller
         $this->load->model('productNameModel', 'productName');
         $this->load->model('transactionModel', 'transaction');
         $this->load->model('detailModel', 'detail');
+        $this->load->model('batchModel', 'batch');
         $this->load->model('productLogModel', 'productLog');
         $this->load->model('transactionLogModel', 'transactionLog');
 
@@ -161,6 +162,11 @@ class Inventory extends CI_Controller
         if ($data = $this->input->post('buyproduct')) {
             $data['date_posted'] = date('Y-m-d H:i:s');
 
+            if(empty($data['batch_id']))
+            {
+                $this->insertBatch();
+            }
+
             if (isset($data['sum'])) {
                 $data['cost'] = $data['cost'] / $data['unit'];
                 unset($data['sum']);
@@ -201,6 +207,26 @@ class Inventory extends CI_Controller
 //        $q = $this->user->users_id;
 //        echo $q;
 
+    }
+
+    public function insertBatch()
+    {
+        if ($data = $this->input->post('buyproduct')) {
+            $data['created_on'] = date('Y-m-d H:i:s');
+            if (isset($data['sum'])) {
+                $data['cost'] = $data['cost'] / $data['unit'];
+                unset($data['sum']);
+            }
+            $data['product_id'] = $this->product->getId($data['productName'] );
+            unset($data['productName']);
+            unset($data['product_id']);
+//            unset($data['batch_id']);
+            unset($data['productName']);
+            unset($data['name']);
+            unset($data['unit']);
+            unset($data['cost']);
+            $this->batch->add($data);
+        }
     }
 
     public function sellProduct()

@@ -23,6 +23,13 @@
             <form name="frmOne" id="buyContactForm" class="form-horizontal" action="" method="post">
 
                 <div class="form-group">
+                    <label for="name" style="color:#3fa9f5;" class="col-sm-3 control-label">Batch Number</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" value="<?php echo isset($post)?$post->batch_id:''; ?>" name="buyproduct[batch_id]" placeholder="Enter batch id number">
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="name" style="color:#3fa9f5;" class="col-sm-3 control-label">Product Name</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" value="<?php echo isset($post)?$post->productName:''; ?>" name="buyproduct[productName]" id="get_names_product" placeholder="Enter product full name">

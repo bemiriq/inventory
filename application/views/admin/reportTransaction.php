@@ -10,11 +10,11 @@
                 <div class="row">
                         <div class="form-group col-md-3">
                             <label for="exampleInputDate1" style="color:#337AB7">From</label>
-                            <input type="date" class="form-control" name="date_posted[]" id="datepicker1">
+                            <input type="date" value='<php echo $date_posted1 ?>' class="form-control" name="date_posted[]" id="datepicker1">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="exampleInputDate1" style="color:#337AB7">To</label>
-                            <input type="date" name="date_posted[]" class="form-control" id="datepicker2">
+                            <input type="date" value=". $_POST['date_posted'] ." name="date_posted[]" class="form-control" id="datepicker2">
                         </div>
                         <br>
                         <div class="form-group col-md-3">
