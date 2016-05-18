@@ -164,6 +164,18 @@ class transactionModel extends CI_Model
     }
 
 
+    function get_price($q)
+    {
+        $q = $this->db->query("SELECT `product_id`,SUM(`unit`) as total FROM `transaction` where `product_id` = 22");
+        // $this->db->select('customerName')->from('transaction');
+        // $q = $this->db->get();
+        if ($q->num_rows() > 0) {
+            foreach ($q->result_array() as $row) {
+                $row_set[] = htmlentities(stripslashes($row['total'])); //build an array
+            }
+            echo json_encode($row_set); //format the array into json data
+        }
+    }
 }
 
 

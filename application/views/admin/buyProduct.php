@@ -8,10 +8,10 @@
         <!-- /.col-lg-12 -->
     </div>
 
-    <?php if($msg = $this->session->flashdata("message")): ?>
+    <?php if($data = $this->session->flashdata("message")): ?>
 
         <p class="success">
-            <?php echo $msg; ?>
+            <?php echo "Bill " . $data['batch_id'] . " product added successfully."; ?>
         </p>
 
     <?php endif; ?>
@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <label for="name" style="color:#3fa9f5;" class="col-sm-3 control-label">Product Name</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" value="<?php echo isset($post)?$post->productName:''; ?>" name="buyproduct[productName]" id="get_names_product" placeholder="Enter product full name">
+                        <input type="text" onclick="myscript();" class="form-control" value="<?php echo isset($post)?$post->productName:''; ?>" name="buyproduct[productName]" id="get_names_product" placeholder="Enter product full name">
                     </div>
                 </div>
 
@@ -59,7 +59,7 @@
                     <div class="col-sm-5">
                         <input type="text" class="form-control"
                                value="<?php echo isset($post) ? $post->cost:''; ?>" name="buyproduct[cost]"
-                               id="cost" placeholder="Enter Total Cost">
+                               id="get_prices" placeholder="Enter Total Cost">
                     </div>
                     <label for="cost" style="color:#3fa9f5;" class="col-sm-1 control-label">Sum</label>
 
@@ -69,8 +69,23 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="col-sm-offset-9 col-sm-6">
+                    <label for="cost" style="color:#3fa9f5;" class="col-sm-3 control-label">Payment</label>
+                    <label class="radio-inline col-sm-offset-1">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> Cash
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Credit
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> Partial
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-7 col-sm-6">
                         <button type="submit" style="color:white; background:#3fa9f5;" value="Add Transaction" class="btn btn-default" >Submit</button>
+
+                        <button type="reset" value="Add Transaction" class="btn btn-danger" >Reset</button>
                     </div>
                 </div>
 

@@ -19,22 +19,29 @@
         <script type="text/javascript">
             $(function(){
               $("#get_names_supplier").autocomplete({
-                source: "<?php echo site_url('inventory/get_supplier_names'); ?>" // path to the get_birds method
+                source: "<?php echo site_url('inventory/get_supplier_names'); ?>" // path to the get_supplier_name method
               });
             });
         </script>
         <script type="text/javascript">
             $(function(){
               $("#get_names_customer").autocomplete({
-                source: "<?php echo site_url('inventory/get_customer_names'); ?>" // path to the get_birds method
+                source: "<?php echo site_url('inventory/get_customer_names'); ?>" // path to the get_customer_name method
               });
             });
         </script>
         <script type="text/javascript">
             $(function(){
               $("#get_names_product").autocomplete({
-                source: "<?php echo site_url('inventory/get_product_names'); ?>" // path to the get_birds method
+                source: "<?php echo site_url('inventory/get_product_names'); ?>" // path to the get_product_name method
               });
+            });
+        </script>
+        <script type="text/javascript">
+            $(function(){
+                $("#get_prices").autocomplete({
+                    source: "<?php echo site_url('inventory/get_price'); ?>" // path to the get_product_price method
+                });
             });
         </script>
     <!-- end of autofill dropdown script -->

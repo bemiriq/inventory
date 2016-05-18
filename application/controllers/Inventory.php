@@ -196,7 +196,13 @@ class Inventory extends CI_Controller
             $this->transactionLog->add($data);
 
 //            $this->productLog->add($data);
-            $this->session->set_flashdata('message', "Product bought successfully");
+            $this->session->set_flashdata('message', $data);
+
+            echo $data['cost'];
+//            $this->session->set_flashdata('message', "Product bought successfully", $data['cost']);
+//            echo $this->session->flashdata('message');
+            echo $data;
+            var_dump($data);
             redirect('inventory/buyProduct');
         } else {
             $this->header();
@@ -429,5 +435,13 @@ class Inventory extends CI_Controller
         }
     }
 
+    function get_price()
+    {
+        $this->load->model('transactionModel', 'transaction');
+        if (isset($_GET['term'])) {
+            $q = strtolower($_GET['term']);
+            $this->transaction->get_price($q);
+        }
+    }
 
 }
