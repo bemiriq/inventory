@@ -70,14 +70,298 @@ class Inventory extends CI_Controller
         $this->footer();
     }
 
+    public function createBatch()
+    {
+        if ($data = $this->input->post('batch')) {
+            $data['created_on'] = date('Y-m-d H:i:s');
+            $data['users_id'] = $this->user->users_id;
+            $this->batch->add($data);
+            $getBatch['batch_id'] = $this->batch->insert_id();
+//            $this->sellingProduct($getBatch);
+            redirect('inventory/sellingProduct/' . $getBatch['batch_id']);
+        } else {
+            $this->header();
+            $data['action'] = 'Sell';
+            $this->load->view("admin/addEditBatch", $data);
+            $this->footer();
+        }
+    }
 
-    public function reportTransaction(){
+    public function createBatchBuy()
+    {
+        if ($data = $this->input->post('batch')) {
+            $data['created_on'] = date('Y-m-d H:i:s');
+            $data['users_id'] = $this->user->users_id;
+            $this->batch->add($data);
+            $getBatch['batch_id'] = $this->batch->insert_id();
+//            $this->sellingProduct($getBatch);
+            redirect('inventory/buyingProduct/' . $getBatch['batch_id']);
+        } else {
+            $this->header();
+            $data['action'] = 'Buy';
+            $this->load->view("admin/addEditBatch", $data);
+            $this->footer();
+        }
+    }
+
+    public function buyingProduct($getBatch)
+    {
+//        echo $getBatch['batch_id'];
+        if ($data = $this->input->post('product')) {
+            $data['date_posted'] = date('Y-m-d H:i:s');
+            $data['type'] = '1';
+            $result = $this->product->getByName($data['product_name']);
+
+            if ($result) {
+                if (isset($data['sum'])) {
+                    $data['cost'] = $data['cost'] / $data['unit'];
+                    unset($data['sum']);
+                }
+
+                $data['batch_id'] = $getBatch;
+
+                $data['product_id'] = $this->product->getId($data['product_name']);
+                unset($data['product_name']);
+
+                $data['users_id'] = $this->user->users_id;
+//                $data['batch_id'] = $this->batch->getById();
+                $this->transaction->add($data);
+                $this->transactionLog->add($data);
+                $this->batch->updateAll($data, $getBatch);
+                $this->session->set_flashdata('message', $data);
+                echo $data['name'];
+
+                redirect('inventory/buyMessage/' . $getBatch);
+            } else {
+                $data['users_id'] = $this->user->users_id;
+//                unset($data['batch_id']);
+                unset($data['sum']);
+                unset($data['unit']);
+                unset($data['cost']);
+                unset($data['type']);
+                $this->product->add($data);
+                $data['date_posted'] = date('Y-m-d H:i:s');
+
+                $result = $this->product->getByName($data['product_name']);
+
+                if ($result) {
+                    if ($data = $this->input->post('product')) {
+                        if (isset($data['sum'])) {
+                            $data['cost'] = $data['cost'] / $data['unit'];
+                            unset($data['sum']);
+                        }
+
+                        $data['batch_id'] = $getBatch;
+
+                        $data['product_id'] = $this->product->getId($data['product_name']);
+                        unset($data['product_name']);
+
+                        $data['users_id'] = $this->user->users_id;
+                        $data['type'] = '2';
+
+                        $this->transaction->add($data);
+                        $this->batch->updateAll($data, $getBatch);
+                        $this->transactionLog->add($data);
+                        $this->session->set_flashdata('message', $data);
+
+                        redirect('inventory/buyMessage/' . $getBatch);
+                    }
+                }
+            }
+        } else {
+            $this->header();
+            $data['action'] = 'Buy';
+            $data['batch_id'] = $getBatch;
+            $this->load->view("admin/buySellProduct", $data);
+            $this->footer();
+        }
+
+    }
+
+    public function sellingProduct($getBatch)
+    {
+//        echo $getBatch['batch_id'];
+        if ($data = $this->input->post('product')) {
+            $data['date_posted'] = date('Y-m-d H:i:s');
+            $data['type'] = '2';
+            $result = $this->product->getByName($data['product_name']);
+
+            if ($result) {
+                if (isset($data['sum'])) {
+                    $data['cost'] = $data['cost'] / $data['unit'];
+                    unset($data['sum']);
+                }
+                if (isset($data['unit'])) {
+                    $data['unit'] = $data['unit'] * -1;
+                }
+                if (isset($data['cost'])) {
+                    $data['cost'] = $data['cost'] * -1;
+                }
+
+                $data['batch_id'] = $getBatch;
+
+                $data['product_id'] = $this->product->getId($data['product_name']);
+                unset($data['product_name']);
+
+                $data['users_id'] = $this->user->users_id;
+//                $data['batch_id'] = $this->batch->getById();
+                $this->transaction->add($data);
+                $this->transactionLog->add($data);
+                $this->batch->updateAll($data, $getBatch);
+                $this->session->set_flashdata('message', $data);
+                echo $data['name'];
+
+                redirect('inventory/sellMessage/' . $getBatch);
+            } else {
+                $data['users_id'] = $this->user->users_id;
+//                unset($data['batch_id']);
+                unset($data['sum']);
+                unset($data['unit']);
+                unset($data['cost']);
+                unset($data['type']);
+                $this->product->add($data);
+                $data['date_posted'] = date('Y-m-d H:i:s');
+
+                $result = $this->product->getByName($data['product_name']);
+
+                if ($result) {
+                    if ($data = $this->input->post('product')) {
+                        if (isset($data['sum'])) {
+                            $data['cost'] = $data['cost'] / $data['unit'];
+                            unset($data['sum']);
+                        }
+                        if (isset($data['unit'])) {
+                            $data['unit'] = $data['unit'] * -1;
+                        }
+                        if (isset($data['cost'])) {
+                            $data['cost'] = $data['cost'] * -1;
+                        }
+
+                        $data['type'] = '2';
+                        $data['batch_id'] = $getBatch;
+
+                        $data['product_id'] = $this->product->getId($data['product_name']);
+                        unset($data['product_name']);
+
+                        $data['users_id'] = $this->user->users_id;
+
+                        $this->transaction->add($data);
+                        $this->batch->updateAll($data, $getBatch);
+                        $this->transactionLog->add($data);
+                        $this->session->set_flashdata('message', $data);
+
+                        redirect('inventory/sellMessage/' . $getBatch);
+                    }
+                }
+            }
+        } else {
+            $this->header();
+            $data['action'] = 'Sell';
+            $data['batch_id'] = $getBatch;
+            $this->load->view("admin/buySellProduct", $data);
+            $this->footer();
+        }
+    }
+
+    public function buyMessage($getBatch)
+    {
+        $this->header();
+        $data['batch_id'] = $getBatch;
+        $this->load->view("admin/buyMessage", $data);
+        $this->footer();
+    }
+
+    public function sellMessage($getBatch)
+    {
+        $this->header();
+        $data['batch_id'] = $getBatch;
+        $this->load->view("admin/sellMessage", $data);
+        $this->footer();
+    }
+
+    function updateBatch($getBatch)
+    {
+        $data['batch_id'] = $getBatch;
+        $id = $getBatch;
+        $post = $this->product->getById($id);
+
+        if ($data = $this->input->post('product')) {
+            $this->batch->updateAll($data, $id);
+        }
+    }
+
+
+    // Function created from here for the VERSION-2 of inventory system
+
+
+    public function newSystem()
+    {
+        if ($data = $this->input->post('newBatch')) {
+            $data['created_on'] = date('Y-m-d H:i:s');
+            $data['users_id'] = $this->user->users_id;
+
+            $getBatch['batch_id'] = $this->batch->insert_id_new();
+
+            echo $getBatch;
+
+            redirect('inventory/newSystemBatch/' . $getBatch['batch_id']);
+        } else {
+            $this->header();
+            $data['action'] = 'System';
+            $data['users_id'] = $this->user->users_id;
+            $this->load->view("admin/newSystemBatch", $data);
+            $this->footer();
+        }
+    }
+
+    public function newSystemBatch($getBatch)
+    {
+        if ($data = $this->input->post('systemProduct')) {
+
+//            $data['users_id'] = $this->user->users_id;
+            $data['batch_id'] = $getBatch;
+
+            $productName = $data['product_name'];
+            $unit = $data['unit'];
+
+            $data = array(
+                'product_name'  => $productName,
+                'unit'     => $unit,
+
+            );
+
+            $this->session->set_userdata('sessiondata',$data);
+            $this->session->set_flashdata('message', $data);
+
+            redirect('inventory/newSystemMessage/' . $getBatch['batch_id']);
+        } else {
+            $this->header();
+            $data['action'] = 'System';
+            $data['users_id'] = $this->user->users_id;
+            $this->load->view("admin/newSystemTable", $data);
+            $this->footer();
+        }
+    }
+
+    public function newSystemMessage($getBatch)
+    {
+        $this->header();
+        $data['batch_id'] = $getBatch;
+        $this->load->view("admin/newSystemMessage", $data);
+        $this->footer();
+    }
+
+
+    // End of function VERSION-2 of inventory system
+
+
+    public function reportTransaction()
+    {
         //pagination settings
         $config['base_url'] = site_url('inventory/reportTransaction');
         $page = $this->uri->segment(3);
-        if(is_null($page))
-        {
-            redirect($config['base_url'].'/1');
+        if (is_null($page)) {
+            redirect($config['base_url'] . '/1');
         }
         $config['total_rows'] = $this->transaction->countAll();
         $config['per_page'] = 10;
@@ -113,7 +397,7 @@ class Inventory extends CI_Controller
 //        echo $data['page'];
 
         //call the model function to get the department data
-        $data['posts'] = $this->transactionLog->get_report($data['page'],$config['per_page']);
+        $data['posts'] = $this->transactionLog->get_report($data['page'], $config['per_page']);
         // $data['posts'] = $this->transactionLog->get_report();           
         $data['pagination'] = $this->pagination->create_links();
 
@@ -162,48 +446,65 @@ class Inventory extends CI_Controller
         if ($data = $this->input->post('buyproduct')) {
             $data['date_posted'] = date('Y-m-d H:i:s');
 
-            if(empty($data['batch_id']))
-            {
-                $this->insertBatch();
-            }
+            if (empty($data['batch_id'])) {
+                $data['created_on'] = date('Y-m-d H:i:s');
+                if (isset($data['sum'])) {
+                    $data['cost'] = $data['cost'] / $data['unit'];
+                    unset($data['sum']);
+                }
+                $data['product_id'] = $this->product->getId($data['productName']);
+                unset($data['productName']);
+                unset($data['date_posted']);
+                unset($data['product_id']);
+//            unset($data['batch_id']);
+                unset($data['productName']);
+                unset($data['name']);
+                unset($data['unit']);
+                unset($data['cost']);
+                $this->batch->add($data);
 
-            if (isset($data['sum'])) {
-                $data['cost'] = $data['cost'] / $data['unit'];
-                unset($data['sum']);
-            }
+            } else {
 
-            $data['users_id'] = $this->user->users_id;
+//                $batch_id = $this->input->post($data['batch_id']);
+                $result = $this->batch->getById($data['batch_id']);
+                var_dump($result);
+                if ($result) {
+                    if (isset($data['sum'])) {
+                        $data['cost'] = $data['cost'] / $data['unit'];
+                        unset($data['sum']);
+                    }
 
-            $data['product_id'] = $this->product->getId($data['productName'] );
-            unset($data['productName']);
+                    $data['users_id'] = $this->user->users_id;
 
-            $data['type'] = $this->detail->getType($data['name'] );
-            $data['detail_id'] = $this->detail->getDetail($data['name'] );
-            unset($data['name']);
+                    $data['product_id'] = $this->product->getId($data['productName']);
+                    unset($data['productName']);
 
-//            if ($name = $this->input->post('buyproduct')) {
-//                $name['date_posted'] = date('Y-m-d H:i:s');
-//                $name['users_id'] = $this->user->users_id;
-//                unset($name['productName']);
-//                unset($name['unit']);
-//                unset($name['cost']);
-//                $this->detail->add($name);
-//
-//                //$name['type'] = $this->product->getType($name['name'] );
-//            }
+                    $data['type'] = $this->detail->getType($data['name']);
+                    $data['detail_id'] = $this->detail->getDetail($data['name']);
+                    unset($data['name']);
 
-            $this->transaction->add($data);
-            $this->transactionLog->add($data);
+
+                    $this->transaction->add($data);
+                    $this->transactionLog->add($data);
 
 //            $this->productLog->add($data);
-            $this->session->set_flashdata('message', $data);
+                    $this->session->set_flashdata('message', $data);
 
-            echo $data['cost'];
+                    echo $data['cost'];
 //            $this->session->set_flashdata('message', "Product bought successfully", $data['cost']);
 //            echo $this->session->flashdata('message');
-            echo $data;
-            var_dump($data);
-            redirect('inventory/buyProduct');
+                    echo $data;
+                    var_dump($data);
+                    redirect('inventory/buyProduct');
+                } else {
+                    echo "mistake thau";
+                    $this->session->set_flashdata('errormessage', $data);
+                    $this->header();
+                    $data['action'] = 'Buy';
+                    $this->load->view("admin/buyProduct", $data);
+                    $this->footer();
+                }
+            }
         } else {
             $this->header();
             $data['action'] = 'Buy';
@@ -223,7 +524,7 @@ class Inventory extends CI_Controller
                 $data['cost'] = $data['cost'] / $data['unit'];
                 unset($data['sum']);
             }
-            $data['product_id'] = $this->product->getId($data['productName'] );
+            $data['product_id'] = $this->product->getId($data['productName']);
             unset($data['productName']);
             unset($data['product_id']);
 //            unset($data['batch_id']);
@@ -232,6 +533,7 @@ class Inventory extends CI_Controller
             unset($data['unit']);
             unset($data['cost']);
             $this->batch->add($data);
+            $this->buyProduct();
         }
     }
 
@@ -251,11 +553,11 @@ class Inventory extends CI_Controller
             }
             $data['users_id'] = $this->user->users_id;
 
-            $data['product_id'] = $this->product->getId($data['productName'] );
+            $data['product_id'] = $this->product->getId($data['productName']);
             unset($data['productName']);
 
-            $data['type'] = $this->detail->getSellType($data['name'] );
-            $data['detail_id'] = $this->detail->getDetail($data['name'] );
+            $data['type'] = $this->detail->getSellType($data['name']);
+            $data['detail_id'] = $this->detail->getDetail($data['name']);
             unset($data['name']);
 
             $this->transaction->add($data);
@@ -270,7 +572,6 @@ class Inventory extends CI_Controller
         }
 
     }
-
 
     public function viewProduct()
     {
@@ -339,7 +640,7 @@ class Inventory extends CI_Controller
             // $data['product_id'] = $this->product->getId($data['productName'] );
             // unset($data['productName']);
 
-            $data['detail_id'] = $this->detail->getType($data['name'] );
+            $data['detail_id'] = $this->detail->getType($data['name']);
             unset($data['name']);
 
             $this->transaction->update($data, $id);

@@ -40,7 +40,7 @@
 
 </head>
 
-<body>
+<body onload="enable_text(false);">
 
     <div id="wrapper">
 
@@ -144,6 +144,18 @@
                                 </li> -->
                             </ul>
                             <!-- /.nav-second-level -->
+                        </li>
+
+                        <li>
+                            <a href="<?=site_url('inventory/createBatchBuy')?>">Buy</a>
+                        </li>
+
+                        <li>
+                            <a href="<?=site_url('inventory/createBatch')?>">Sell</a>
+                        </li>
+
+                        <li>
+                            <a href="<?=site_url('inventory/newSystem')?>">New System</a>
                         </li>
 
                         <li>

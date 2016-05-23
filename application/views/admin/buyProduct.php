@@ -9,11 +9,15 @@
     </div>
 
     <?php if($data = $this->session->flashdata("message")): ?>
-
         <p class="success">
-            <?php echo "Bill " . $data['batch_id'] . " product added successfully."; ?>
+            <?php echo "Bill <a href='buyProduct'>" . $data['batch_id'] . "</a> product added successfully."; ?>
         </p>
+    <?php endif; ?>
 
+    <?php if($data = $this->session->flashdata("errormessage")): ?>
+        <p class="success">
+            <?php echo "Batch Id " . $data['batch_id'] . " not available."; ?>
+        </p>
     <?php endif; ?>
 
     <!-- /.row -->
@@ -25,7 +29,7 @@
                 <div class="form-group">
                     <label for="name" style="color:#3fa9f5;" class="col-sm-3 control-label">Batch Number</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" value="<?php echo isset($post)?$post->batch_id:''; ?>" name="buyproduct[batch_id]" placeholder="Enter batch id number">
+                        <input type="text" class="form-control" value="<?php echo $data['batch_id']; ?>" name="buyproduct[batch_id]" placeholder="Enter batch id number">
                     </div>
                 </div>
 
@@ -77,7 +81,10 @@
                         <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Credit
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> Partial
+                        <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" onclick="enable_text(this.select)" >Partial
+                    </label>
+                    <label class="radio-inline">
+                        <input type="text" class="form-control" size="2px" name="partial" placeholder="Left">
                     </label>
                 </div>
 

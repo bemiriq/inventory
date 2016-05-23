@@ -44,6 +44,18 @@
                 });
             });
         </script>
+        <script>
+            jsvar = "<?php echo $data['batch_id']; ?>";
+            document.frmOne.buyproduct[batch_id].value = jsvar;
+            //Do something
+        </script>
+
+        <script type="text/javascript">
+            function enable_text(status) {
+                status = !status;
+                document.frmOne.partial.disabled = status;
+            }
+        </script>
     <!-- end of autofill dropdown script -->
 
     <!-- start of script for bootstrap validation -->

@@ -31,13 +31,6 @@ class batchModel extends CI_Model
 
     function add($data)
     {
-        $query = $this->db->query("SELECT MAX(`batch_id`) as total from `batch`");
-        if($query->num_rows()) {
-            foreach ($query->result() as $row) {
-                $row->total;
-                $data['batch_id'] = $row->total + '1';
-            }
-        }
         $this->db->insert($this->table, $data);
     }
 
@@ -45,6 +38,15 @@ class batchModel extends CI_Model
     {
         $this->db->where("batch_id", $id);
         $this->db->update($this->table, $data);
+    }
+
+    function updateAll($data, $getBatch)
+    {
+//        SELECT sum(unit*cost) as total_amount from transaction where `batch_id` = 1
+        $sql = "UPDATE batch SET `total_amount` = (SELECT sum(`unit`*`cost`) from transaction where `batch_id` = $getBatch) where `batch_id`=$getBatch";
+//        $this->db->where("batch_id", $id);
+        $this->db->query($sql, $data);
+
     }
 
 
@@ -87,6 +89,19 @@ class batchModel extends CI_Model
         return false;
     }
 
+    function insert_id()
+    {
+//        var_dump($this->db->last_query());
+        $last_id = $this->db->insert_id();
+        return $last_id;
+    }
+
+    function insert_id_new()
+    {
+//        var_dump($this->db->last_query());
+        $last_id = $this->db->insert_id();
+        return $last_id+1;
+    }
 
 }
 

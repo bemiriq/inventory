@@ -21,11 +21,11 @@ class productModel extends CI_Model
         if ($limit != null) {
             $this->db->limit($limit['limit'], $limit['offset']);
         }
-        // SELECT `productName`, `cost`,`date_posted` , sum(`stockIn`) from product group by `productName`
-//        $getData = $this->db->query("SELECT `product_id`,`productName`, `cost`,`date_posted` , sum(`stockIn`) as total from product group by `productName`");
-//        $getData = $this->db->query("SELECT `transaction`.`cost`,`transaction`.`date_posted`, `transaction`.`unit`, `detail`.`name` as sam, `product`.`productName` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`type`=`transaction`.`type` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id`");
-       $getData = $this->db->query("SELECT `product_id`,`productName`,`date_posted` FROM `product` WHERE `deleteProduct` = '0'");
-       // $getData = $this->db->get($this->table);
+        // SELECT `product_name`, `cost`,`date_posted` , sum(`stockIn`) from product group by `product_name`
+//        $getData = $this->db->query("SELECT `product_id`,`product_name`, `cost`,`date_posted` , sum(`stockIn`) as total from product group by `product_name`");
+//        $getData = $this->db->query("SELECT `transaction`.`cost`,`transaction`.`date_posted`, `transaction`.`unit`, `detail`.`name` as sam, `product`.`product_name` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`type`=`transaction`.`type` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id`");
+        $getData = $this->db->query("SELECT `product_id`,`product_name`,`date_posted` FROM `product` WHERE `deleteProduct` = '0'");
+        // $getData = $this->db->get($this->table);
         // $getData = $this->db->get($this->table);
         // $q = $this->db->get($this->table);
         if ($getData->num_rows() > 0) {
@@ -41,7 +41,7 @@ class productModel extends CI_Model
 
     function get_fichas()
     {
-        $this->db->select('productName')->from('product');
+        $this->db->select('product_name')->from('product');
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -50,6 +50,17 @@ class productModel extends CI_Model
     function add($data)
     {
         $this->db->insert($this->table, $data);
+    }
+
+    function getProductName()
+    {
+        $query = $this->db->query("SELECT `product_id` FROM `transaction` order by product_id desc limit 1");
+        if ($query->num_rows()) {
+            foreach ($query->result() as $row) {
+                return $row->product_id;
+            }
+
+        }
     }
 
     function update($data, $id)
@@ -125,15 +136,25 @@ class productModel extends CI_Model
         return false;
     }
 
+    function getByName($name)
+    {
+        $this->db->where("product_name", $name);
+        $q = $this->db->get($this->table);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return false;
+    }
+
     // select * from product order by `product_id` desc limit 15
     function get_name_product($q)
     {
-        $q = $this->db->query("SELECT distinct `productName` FROM `product` where `deleteProduct` = '0' ");
-        // $this->db->select('productName')->from('transaction');
+        $q = $this->db->query("SELECT distinct `product_name` FROM `product` where `deleteProduct` = '0' ");
+        // $this->db->select('product_name')->from('transaction');
         // $q = $this->db->get();
         if ($q->num_rows() > 0) {
             foreach ($q->result_array() as $row) {
-                $row_set[] = htmlentities(stripslashes($row['productName'])); //build an array
+                $row_set[] = htmlentities(stripslashes($row['product_name'])); //build an array
             }
             echo json_encode($row_set); //format the array into json data
         }
@@ -143,7 +164,7 @@ class productModel extends CI_Model
     {
         $this->db->select('product_id');
         $this->db->from('product');
-        $this->db->where('productName', $value);
+        $this->db->where('product_name', $value);
         $this->db->limit(1);
 
         $query = $this->db->get();
@@ -155,7 +176,7 @@ class productModel extends CI_Model
         }
         else
         {
-            $data=array('productName' => $value);
+            $data=array('product_name' => $value);
             $data['users_id'] = $this->user->users_id;
             $data['date_posted'] = date('Y-m-d H:i:s');
             // $data['users_id'] = $this->user->users_id; // user ko id
