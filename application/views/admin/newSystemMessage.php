@@ -9,8 +9,11 @@
     </div>
 
     <?php
-    $getValue = $this->session->userdata('sessiondata');
-    print_r($getValue);
+    $getValue = $this->session->userdata('systemProduct');
+//    $getValue[] = array('product_name'=> '11','unit'=> '11');
+    $this->session->set_userdata($getValue);
+
+//    print_r($getValue);
     ?>
 
     <?php if($data = $this->session->flashdata("message")): ?>

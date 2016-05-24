@@ -321,16 +321,28 @@ class Inventory extends CI_Controller
 //            $data['users_id'] = $this->user->users_id;
             $data['batch_id'] = $getBatch;
 
+            if (isset($data['sum'])) {
+                $data['cost'] = $data['cost'] / $data['unit'];
+                unset($data['sum']);
+            }
+
             $productName = $data['product_name'];
             $unit = $data['unit'];
+            $cost = $data['cost'];
 
-            $data = array(
+            // below defines the code for the add multidimensional array on session
+
+            $getValue = $this->session->userdata('sessiondata');
+            $getValue[] = array(
                 'product_name'  => $productName,
                 'unit'     => $unit,
+                'cost' => $cost
 
             );
+            $this->session->set_userdata('sessiondata', $getValue);
 
-            $this->session->set_userdata('sessiondata',$data);
+            //end of adding data on session
+
             $this->session->set_flashdata('message', $data);
 
             redirect('inventory/newSystemMessage/' . $getBatch['batch_id']);
