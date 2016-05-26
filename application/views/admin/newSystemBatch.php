@@ -16,7 +16,7 @@
                 <div class="form-group">
                     <label for="customerName" style="color:#3fa9f5;" class="col-sm-3 control-label">Full Name</label>
                     <div class="col-sm-8">
-                        <input type="text" value="<?php echo isset($post)?$post->name:''; ?>" class="form-control" name="newBatch[name]"  onkeyup="changeInput(this.value)" id="get_names_product" placeholder="Enter Full Name">
+                        <input type="text" value="<?php echo isset($post)?$post->name:''; ?>" class="form-control" name="newBatch[name]"  onkeyup="changeInput(this.value)" id="get_names_supplier" placeholder="Enter Full Name">
                     </div>
                 </div>
 

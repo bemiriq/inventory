@@ -94,17 +94,21 @@ class transactionModel extends CI_Model
 
     function addNew($data)
     {
-        if(is_array($data['product_name'])) $data['product_name'] = implode(",", $data['product_name']);
-        if(is_array($data['unit'])) $data['unit'] = implode(",", $data['unit']);
-        if(is_array($data['cost'])) $data['cost'] = implode(",", $data['cost']);
-
-        $this->db->insert('try', $data);
-//        $check = array(
-//            'product_name' => $data['product_name'],
-//        );
-//        $this->db->insert('try',$check);
-
-//        }$check = print_r(array_values($data));
+        $length = array_unique(array_map('count', $data));
+        if (count($length) == 1) {
+            $length = current($length);
+            $keys = array_keys($data);
+            $res = array();
+            for($i = 0; $i < $length; $i++)
+                foreach($keys as $key)
+                    $res[$i][$key] =  $data[$key][$i];
+            $this->db->insert_batch('try', $res);
+        }
+        else {
+            // incorrect data
+            return false;
+        }
+        return true;
 
     }
 
@@ -155,7 +159,9 @@ class transactionModel extends CI_Model
 
     function get_name_supplier($q)
     {
-        $q = $this->db->query("SELECT distinct `name` FROM `detail` where `type` = 1");
+//        $q = $this->db->query("SELECT distinct `name` FROM `detail` where `type` = 1");
+        $q = $this->db->query("SELECT distinct `name` FROM `batch` where name LIKE '%$q%'");
+//        $q = $this->db->query("SELECT distinct `name` FROM `batch` and name LIKE '%$q%'");
         if ($q->num_rows() > 0) {
             foreach ($q->result_array() as $row) {
                 $row_set[] = htmlentities(stripslashes($row['name'])); //build an array

@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d9e6661b-be13-4205-a7e4-0d90fd600c55" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/Auth.php" afterPath="$PROJECT_DIR$/application/controllers/Auth.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/controllers/Inventory.php" afterPath="$PROJECT_DIR$/application/controllers/Inventory.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/batchModel.php" afterPath="$PROJECT_DIR$/application/models/batchModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/footer.php" afterPath="$PROJECT_DIR$/application/views/footer.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/login.php" afterPath="$PROJECT_DIR$/application/views/login.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/admin/newSystemBatch.php" afterPath="$PROJECT_DIR$/application/views/admin/newSystemBatch.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/admin/newSystemTable.php" afterPath="$PROJECT_DIR$/application/views/admin/newSystemTable.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/productModel.php" afterPath="$PROJECT_DIR$/application/models/productModel.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/transactionModel.php" afterPath="$PROJECT_DIR$/application/models/transactionModel.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -53,11 +46,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Inventory.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Inventory.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/controllers/Inventory.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33200794">
-              <caret line="761" column="32" selection-start-line="761" selection-start-column="32" selection-end-line="761" selection-end-column="32" />
+            <state vertical-scroll-proportion="-22.563637">
+              <caret line="328" column="0" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -66,8 +59,8 @@
       <file leaf-file-name="productModel.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/models/productModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.692307">
-              <caret line="151" column="133" selection-start-line="151" selection-start-column="133" selection-end-line="151" selection-end-column="133" />
+            <state vertical-scroll-proportion="-12.307693">
+              <caret line="89" column="42" selection-start-line="89" selection-start-column="42" selection-end-line="89" selection-end-column="42" />
               <folding>
                 <marker date="1464250177693" expanded="true" signature="1241:1332" placeholder="SELECT `prod..." />
                 <marker date="1464250177693" expanded="true" signature="2024:2095" placeholder="SELECT `prod..." />
@@ -84,19 +77,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="transactionModel.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="transactionModel.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/models/transactionModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="33.346153">
-              <caret line="98" column="80" selection-start-line="98" selection-start-column="80" selection-end-line="98" selection-end-column="80" />
+            <state vertical-scroll-proportion="0.5432331">
+              <caret line="104" column="40" selection-start-line="104" selection-start-column="40" selection-end-line="104" selection-end-column="40" />
               <folding>
-                <marker date="1464202272000" expanded="true" signature="477:855" placeholder="SELECT `tran..." />
-                <marker date="1464202272000" expanded="true" signature="1331:1712" placeholder="SELECT `tran..." />
-                <marker date="1464202272000" expanded="true" signature="2132:2504" placeholder="SELECT `tran..." />
-                <marker date="1464202272000" expanded="true" signature="2877:3265" placeholder="SELECT trans..." />
-                <marker date="1464202272000" expanded="true" signature="5586:5639" placeholder="SELECT disti..." />
-                <marker date="1464202272000" expanded="true" signature="5993:6046" placeholder="SELECT disti..." />
-                <marker date="1464202272000" expanded="true" signature="6494:6577" placeholder="SELECT `prod..." />
+                <marker date="1464286409086" expanded="true" signature="477:855" placeholder="SELECT `tran..." />
+                <marker date="1464286409086" expanded="true" signature="1331:1712" placeholder="SELECT `tran..." />
+                <marker date="1464286409086" expanded="true" signature="2132:2504" placeholder="SELECT `tran..." />
+                <marker date="1464286409086" expanded="true" signature="2877:3265" placeholder="SELECT trans..." />
+                <marker date="1464286409086" expanded="true" signature="5592:5645" placeholder="SELECT disti..." />
+                <marker date="1464286409086" expanded="true" signature="5680:5738" placeholder="SELECT disti..." />
+                <marker date="1464286409086" expanded="true" signature="5834:5975" placeholder="SELECT disti..." />
+                <marker date="1464286409086" expanded="true" signature="6185:6238" placeholder="SELECT disti..." />
+                <marker date="1464286409086" expanded="true" signature="6686:6769" placeholder="SELECT `prod..." />
               </folding>
             </state>
           </provider>
@@ -105,8 +100,8 @@
       <file leaf-file-name="footer.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/views/footer.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.8461537">
-              <caret line="34" column="52" selection-start-line="34" selection-start-column="52" selection-end-line="34" selection-end-column="52" />
+            <state vertical-scroll-proportion="-9.807693">
+              <caret line="31" column="17" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -115,28 +110,8 @@
       <file leaf-file-name="newSystemTable.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/views/admin/newSystemTable.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.5384617">
-              <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="newSystemMessage.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/admin/newSystemMessage.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.1923077">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="newSystemBatch.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/admin/newSystemBatch.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.307692">
-              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+            <state vertical-scroll-proportion="-16.346153">
+              <caret line="83" column="17" selection-start-line="83" selection-start-column="17" selection-end-line="83" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -183,11 +158,11 @@
         <option value="$PROJECT_DIR$/application/views/login.php" />
         <option value="$PROJECT_DIR$/application/controllers/Auth.php" />
         <option value="$PROJECT_DIR$/application/controllers/Inventory.php" />
-        <option value="$PROJECT_DIR$/application/views/admin/newSystemTable.php" />
-        <option value="$PROJECT_DIR$/application/models/transactionModel.php" />
-        <option value="$PROJECT_DIR$/application/views/admin/newSystemBatch.php" />
         <option value="$PROJECT_DIR$/application/views/footer.php" />
         <option value="$PROJECT_DIR$/application/models/productModel.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/newSystemBatch.php" />
+        <option value="$PROJECT_DIR$/application/views/admin/newSystemTable.php" />
+        <option value="$PROJECT_DIR$/application/models/transactionModel.php" />
       </list>
     </option>
   </component>
@@ -452,7 +427,13 @@
       <option name="project" value="LOCAL" />
       <updated>1464072779623</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="get_names_product autocomplete has been completed. Now it displays as word typed by the user.">
+      <created>1464250299674</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1464250299674</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -461,6 +442,7 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24045801" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32935154" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27458397" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -469,7 +451,6 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -504,7 +485,8 @@
     <MESSAGE value="Displayed bill title after adding products" />
     <MESSAGE value="New Version Used to develop .. passing the value in session !!" />
     <MESSAGE value="Displays table according to data submitted. Completed using session and array[]  multidimensional ." />
-    <option name="LAST_COMMIT_MESSAGE" value="Displays table according to data submitted. Completed using session and array[]  multidimensional ." />
+    <MESSAGE value="get_names_product autocomplete has been completed. Now it displays as word typed by the user." />
+    <option name="LAST_COMMIT_MESSAGE" value="get_names_product autocomplete has been completed. Now it displays as word typed by the user." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -788,6 +770,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.073308274">
           <caret line="92" column="5" selection-start-line="92" selection-start-column="5" selection-end-line="92" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -802,6 +785,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15977444">
           <caret line="26" column="64" selection-start-line="26" selection-start-column="64" selection-end-line="26" selection-end-column="64" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -809,6 +793,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.29699248">
           <caret line="36" column="34" selection-start-line="36" selection-start-column="34" selection-end-line="36" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -827,58 +812,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/admin/newSystemBatch.php">
+    <entry file="file://$PROJECT_DIR$/application/views/admin/newSystemMessage.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.307692">
-          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.009398496">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/transactionModel.php">
+    <entry file="file://$PROJECT_DIR$/application/views/admin/newSystemBatch.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="33.346153">
-          <caret line="98" column="80" selection-start-line="98" selection-start-column="80" selection-end-line="98" selection-end-column="80" />
-          <folding>
-            <marker date="1464202272000" expanded="true" signature="477:855" placeholder="SELECT `tran..." />
-            <marker date="1464202272000" expanded="true" signature="1331:1712" placeholder="SELECT `tran..." />
-            <marker date="1464202272000" expanded="true" signature="2132:2504" placeholder="SELECT `tran..." />
-            <marker date="1464202272000" expanded="true" signature="2877:3265" placeholder="SELECT trans..." />
-            <marker date="1464202272000" expanded="true" signature="5586:5639" placeholder="SELECT disti..." />
-            <marker date="1464202272000" expanded="true" signature="5993:6046" placeholder="SELECT disti..." />
-            <marker date="1464202272000" expanded="true" signature="6494:6577" placeholder="SELECT `prod..." />
-          </folding>
+        <state vertical-scroll-proportion="0.38345864">
+          <caret line="18" column="194" selection-start-line="18" selection-start-column="194" selection-end-line="18" selection-end-column="194" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/footer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.8461537">
-          <caret line="34" column="52" selection-start-line="34" selection-start-column="52" selection-end-line="34" selection-end-column="52" />
+        <state vertical-scroll-proportion="-9.807693">
+          <caret line="31" column="17" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/admin/newSystemTable.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.5384617">
-          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+        <state vertical-scroll-proportion="-16.346153">
+          <caret line="83" column="17" selection-start-line="83" selection-start-column="17" selection-end-line="83" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/admin/newSystemMessage.php">
+    <entry file="file://$PROJECT_DIR$/application/controllers/Inventory.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.1923077">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state vertical-scroll-proportion="-22.563637">
+          <caret line="328" column="0" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/productModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.692307">
-          <caret line="151" column="133" selection-start-line="151" selection-start-column="133" selection-end-line="151" selection-end-column="133" />
+        <state vertical-scroll-proportion="-12.307693">
+          <caret line="89" column="42" selection-start-line="89" selection-start-column="42" selection-end-line="89" selection-end-column="42" />
           <folding>
             <marker date="1464250177693" expanded="true" signature="1241:1332" placeholder="SELECT `prod..." />
             <marker date="1464250177693" expanded="true" signature="2024:2095" placeholder="SELECT `prod..." />
@@ -894,11 +871,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/Inventory.php">
+    <entry file="file://$PROJECT_DIR$/application/models/transactionModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33200794">
-          <caret line="761" column="32" selection-start-line="761" selection-start-column="32" selection-end-line="761" selection-end-column="32" />
-          <folding />
+        <state vertical-scroll-proportion="0.5432331">
+          <caret line="104" column="40" selection-start-line="104" selection-start-column="40" selection-end-line="104" selection-end-column="40" />
+          <folding>
+            <marker date="1464286409086" expanded="true" signature="477:855" placeholder="SELECT `tran..." />
+            <marker date="1464286409086" expanded="true" signature="1331:1712" placeholder="SELECT `tran..." />
+            <marker date="1464286409086" expanded="true" signature="2132:2504" placeholder="SELECT `tran..." />
+            <marker date="1464286409086" expanded="true" signature="2877:3265" placeholder="SELECT trans..." />
+            <marker date="1464286409086" expanded="true" signature="5592:5645" placeholder="SELECT disti..." />
+            <marker date="1464286409086" expanded="true" signature="5680:5738" placeholder="SELECT disti..." />
+            <marker date="1464286409086" expanded="true" signature="5834:5975" placeholder="SELECT disti..." />
+            <marker date="1464286409086" expanded="true" signature="6185:6238" placeholder="SELECT disti..." />
+            <marker date="1464286409086" expanded="true" signature="6686:6769" placeholder="SELECT `prod..." />
+          </folding>
         </state>
       </provider>
     </entry>
