@@ -7,15 +7,23 @@
     </div>
 
     <!-- /.row -->
+    <!-- /.row -->
     <div class="row">
         <div class="col-lg-6">
 
-            <form name="frmOne" class="form-horizontal" action="" method="post">
+            <form name="frmOne" id="newBatch" class="form-horizontal" action="" method="post">
 
                 <div class="form-group">
-                    <label for="customerName" style="color:#3fa9f5;" class="col-sm-3 control-label">Seller Name</label>
+                    <label for="customerName" style="color:#3fa9f5;" class="col-sm-3 control-label">Full Name</label>
                     <div class="col-sm-8">
-                        <input type="text" value="<?php echo isset($post)?$post->name:''; ?>" class="form-control" name="newBatch[name]" id="get_names_product" placeholder="Enter S/C Name">
+                        <input type="text" value="<?php echo isset($post)?$post->name:''; ?>" class="form-control" name="newBatch[name]"  onkeyup="changeInput(this.value)" id="get_names_product" placeholder="Enter Full Name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="paid" style="color:#3fa9f5;" class="col-sm-3 control-label">Paid</label>
+                    <div class="col-sm-8">
+                        <input type="text" value="<?php echo isset($post)?$post->cash_amount:''; ?>" class="form-control" name="newBatch[cash_amount]" placeholder="Enter Amount Paid">
                     </div>
                 </div>
 

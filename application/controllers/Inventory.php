@@ -300,9 +300,18 @@ class Inventory extends CI_Controller
             $data['created_on'] = date('Y-m-d H:i:s');
             $data['users_id'] = $this->user->users_id;
 
-            $getBatch['batch_id'] = $this->batch->insert_id_new();
 
-            echo $getBatch;
+            $getBatch['batch_id'] = $this->batch->insert_id_new();
+            $name = $data['name'];
+            $cash_amount = $data['cash_amount'];
+
+            $getNameValue = $this->session->userdata('nameValue');
+            $getNameValue = array(
+                'name'  => $name,
+                'cash_amount' => $cash_amount,
+                'batch_id'     => $getBatch,
+            );
+            $this->session->set_userdata('nameValue', $getNameValue);
 
             redirect('inventory/newSystemBatch/' . $getBatch['batch_id']);
         } else {
@@ -346,7 +355,18 @@ class Inventory extends CI_Controller
             $this->session->set_flashdata('message', $data);
 
             redirect('inventory/newSystemMessage/' . $getBatch['batch_id']);
-        } else {
+
+        }
+
+        if ($data = $this->input->post('allProduct')) {
+            $this->header();
+            $this->footer();
+//            $data['action'] = 'Posted';
+            $this->transaction->addNew($data);
+            $this->load->view("admin/newSystemTable", $data);
+        }
+
+        else {
             $this->header();
             $data['action'] = 'System';
             $data['users_id'] = $this->user->users_id;

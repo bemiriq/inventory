@@ -23,8 +23,8 @@ class Auth extends CI_Controller
         //This method will have the credentials validation
 
         // $this->post->pop_room_type($data, 'room_type');
-        $this->form_validation->set_rules('username', 'username', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('password', 'password', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('username', 'username');
+        $this->form_validation->set_rules('password', 'password');
 
         if ($this->form_validation->run() == FALSE) {
             //Field validation failed.  User redirected to login page
@@ -37,7 +37,9 @@ class Auth extends CI_Controller
                 $this->session->set_userdata($result);
                 redirect('inventory/dashboard');
             } else {
-                echo '<p style="width: 300px; margin-right: auto; margin-left: auto; margin-top: 1%; color: #B22222"> Incorrect Username and Password </p>';
+                echo '<br><div class="alert alert-danger col-lg-4" style="margin-left: 33%;">
+                        <strong>Incorrect!</strong> Username and Password.
+                    </div>';
                 $this->load->view('login');
             }
         }

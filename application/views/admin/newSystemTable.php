@@ -3,7 +3,7 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header"><?php echo $action; ?> Table</h1>
+            <h1 class="page-header">Table</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-lg-6">
 
-            <form name="frmOne" class="form-horizontal" action="" method="post">
+            <form name="frmOne" id="newBatch" class="form-horizontal" action="" method="post">
 
                 <div class="form-group">
                     <label for="customerName" style="color:#3fa9f5;" class="col-sm-3 control-label">Product Name</label>
@@ -51,14 +51,19 @@
 
             </form>
 
+            </div>
+
+        <div class="col-lg-6">
 
             <?php
-            $getValue = $this->session->userdata('sessiondata');
+            $getNameValue = $this->session->userdata('nameValue');
+            echo '<h3>' .$getNameValue['name'] .' paid Rs ' .$getNameValue['cash_amount']. '</h3>';
             //    echo "<table border='1'><tr><td>" .print_r($getValue) . "</td></tr></table>";
 
 //            $getValue[] = array('product_name'=>'sa','unit'=>'7','cost'=>'90');
 
 //           $getValue[] = $this->session->set_userdata('sessiondata', $getValue);
+            $getValue = $this->session->userdata('sessiondata');
             if ($getValue != NULL){
 
                 echo '<table  class="table table-bordered table-striped">';
@@ -66,18 +71,18 @@
                 echo '<td><strong>Product Name</strong></td>';
                 echo '<td><strong>Unit</strong></td>';
                 echo '<td><strong>Cost</strong></td>';
-                echo "<form method='post'>";
+                echo "<form method='post' action=''>";
 //            print_r($getValue);
 //            exit;
                 foreach ($getValue as $row)
                 {
                     echo '<tr>';
-                    echo '<td>' .$row['product_name']. '</td>';
-                    echo '<td>' .$row['unit'].'</td>';
-                    echo '<td>' .$row['cost'].'</td>';
+                    echo '<td><input type="hidden" name="allProduct[product_name][]" value="'.$row['product_name'].'">' .$row['product_name']. '</td>';
+                    echo '<td><input type="hidden" name="allProduct[unit][]" value="'.$row['unit'].'">' .$row['unit'].'</td>';
+                    echo '<td><input type="hidden" name="allProduct[cost][]" value="'.$row['cost'].'">' .$row['cost'].'</td>';
                     echo '</tr>';
                 }
-                echo '<tr><td></td><td><td><input type="button" class="btn btn-success" value="Submit"></td></td></tr>';
+                echo '<tr><td></td><td><td><button type="submit" class="btn btn-success">POST</button></td></td></tr>';
                 echo "</form>";
                 echo '</table>';
             }

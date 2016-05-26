@@ -103,6 +103,13 @@ class batchModel extends CI_Model
         return $last_id+1;
     }
 
+    function insert_id_name()
+    {
+//        var_dump($this->db->last_query());
+        $last_id = $this->db->insert_id();
+        return $last_id+'Name ho';
+    }
+
 }
 
 

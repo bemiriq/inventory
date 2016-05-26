@@ -87,9 +87,25 @@ class transactionModel extends CI_Model
         return $query->result_array();
     }
 
-    function add($data)
+//    function add($data)
+//    {
+//        $this->db->insert($this->table,$data);
+//    }
+
+    function addNew($data)
     {
-        $this->db->insert($this->table, $data);
+        if(is_array($data['product_name'])) $data['product_name'] = implode(",", $data['product_name']);
+        if(is_array($data['unit'])) $data['unit'] = implode(",", $data['unit']);
+        if(is_array($data['cost'])) $data['cost'] = implode(",", $data['cost']);
+
+        $this->db->insert('try', $data);
+//        $check = array(
+//            'product_name' => $data['product_name'],
+//        );
+//        $this->db->insert('try',$check);
+
+//        }$check = print_r(array_values($data));
+
     }
 
     function update($data, $id)
@@ -140,8 +156,6 @@ class transactionModel extends CI_Model
     function get_name_supplier($q)
     {
         $q = $this->db->query("SELECT distinct `name` FROM `detail` where `type` = 1");
-        // $this->db->select('supplierName')->from('transaction');
-        // $q = $this->db->get();
         if ($q->num_rows() > 0) {
             foreach ($q->result_array() as $row) {
                 $row_set[] = htmlentities(stripslashes($row['name'])); //build an array

@@ -149,7 +149,8 @@ class productModel extends CI_Model
     // select * from product order by `product_id` desc limit 15
     function get_name_product($q)
     {
-        $q = $this->db->query("SELECT distinct `product_name` FROM `product` where `deleteProduct` = '0' ");
+        $q = $this->db->query("SELECT distinct `product_name` FROM `product` where `deleteProduct` = '0' and product_name LIKE '%$q%'");
+//        $q = $this->db->query("SELECT DISTINCT `product_name` as 'fetch' from `product` AND 'fetch' LIKE '%$q%' ");
         // $this->db->select('product_name')->from('transaction');
         // $q = $this->db->get();
         if ($q->num_rows() > 0) {

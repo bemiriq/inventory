@@ -201,6 +201,74 @@
             });
         });
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#newBatch').bootstrapValidator({
+                container: '#messages',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    'newBatch[name]' : {
+                        validators: {
+                            notEmpty: {
+                                message: 'Name is required and cannot be empty'
+                            }
+                        }
+                    },
+                    'newBatch[cash_amount]': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Amount field must not be empty'
+                            },
+                            integer: {
+                                message: 'Amount value is not an integer',
+                                // The default separators
+                                thousandsSeparator: '',
+                                decimalSeparator: '.'
+                            }
+                        }
+                    },
+                    'systemProduct[product_name]': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Product cost field must not be empty'
+                            },
+                        }
+                    },
+                    'systemProduct[unit]': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Unit field must not be empty'
+                            },
+                            integer: {
+                                message: 'Unit value is not an integer',
+                                // The default separators
+                                thousandsSeparator: '',
+                                decimalSeparator: '.'
+                            }
+                        }
+                    },
+                    'systemProduct[cost]': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Product Cost field must not be empty'
+                            },
+                            integer: {
+                                message: 'Product Cost value is not an integer',
+                                // The default separators
+                                thousandsSeparator: '',
+                                decimalSeparator: '.'
+                            }
+                        }
+                    },
+                }
+            });
+        });
+    </script>
     <!-- end of bootstrap validation -->
 
     
