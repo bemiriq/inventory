@@ -10,7 +10,7 @@
 
     <?php
     $getValue = $this->session->userdata('systemProduct');
-//    $getValue[] = array('product_name'=> '11','unit'=> '11');
+    //    $getValue[] = array('product_name'=> '11','unit'=> '11');
     $this->session->set_userdata($getValue);
 
     ?>
@@ -19,10 +19,10 @@
         <p class="success">
             <?php
             $getBatch = $data['batch_id'];
-//            echo $getBatch;
-//            exit;
-            echo "Bill <a href=".'../../inventory/newSystemBatch/'.$getBatch.">" . $getBatch . "</a> product added successfully.";
-//            echo "Bill <a href='../../inventory/newSystemBatch/1'>". 1 ."</a> product added successfully.";
+            //            echo $getBatch;
+            //            exit;
+            echo "Bill <a href=".'../../inventory/buySystemTable/'.$getBatch.">" . $getBatch . "</a> product added successfully.";
+            //            echo "Bill <a href='../../inventory/newSystemBatch/1'>". 1 ."</a> product added successfully.";
             ?>
         </p>
     <?php endif; ?>

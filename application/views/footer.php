@@ -235,7 +235,7 @@
                     'systemProduct[product_name]': {
                         validators: {
                             notEmpty: {
-                                message: 'Product cost field must not be empty'
+                                message: 'Product name field must not be empty'
                             },
                         }
                     },

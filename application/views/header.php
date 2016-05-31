@@ -155,8 +155,20 @@
                         </li>
 
                         <li>
-                            <a href="<?=site_url('inventory/newSystem')?>">New System</a>
+                            <a href="<?=site_url('inventory/buyNewSystem')?>">Buy New System</a>
                         </li>
+
+                        <li>
+                            <a href="<?=site_url('inventory/newSystem')?>">Sell New System</a>
+                        </li>
+
+<!--                        <li>-->
+<!--                            <a href="--><?//=site_url('inventory/newSystem')?><!--">Buy New System</a>-->
+<!--                        </li>-->
+<!---->
+<!--                        <li>-->
+<!--                            <a href="--><?//=site_url('inventory/newSystem')?><!--">Sell New System</a>-->
+<!--                        </li>-->
 
                         <li>
                             <a href="<?=site_url('inventory/reportTransaction')?>">Transaction Report</a>

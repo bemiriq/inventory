@@ -21,10 +21,10 @@ class productModel extends CI_Model
         if ($limit != null) {
             $this->db->limit($limit['limit'], $limit['offset']);
         }
-        // SELECT `product_name`, `cost`,`date_posted` , sum(`stockIn`) from product group by `product_name`
-//        $getData = $this->db->query("SELECT `product_id`,`product_name`, `cost`,`date_posted` , sum(`stockIn`) as total from product group by `product_name`");
-//        $getData = $this->db->query("SELECT `transaction`.`cost`,`transaction`.`date_posted`, `transaction`.`unit`, `detail`.`name` as sam, `product`.`product_name` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`type`=`transaction`.`type` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id`");
-        $getData = $this->db->query("SELECT `product_id`,`product_name`,`date_posted` FROM `product` WHERE `deleteProduct` = '0'");
+        // SELECT `product_name`, `cost`,`created_on` , sum(`stockIn`) from product group by `product_name`
+//        $getData = $this->db->query("SELECT `product_id`,`product_name`, `cost`,`created_on` , sum(`stockIn`) as total from product group by `product_name`");
+//        $getData = $this->db->query("SELECT `transaction`.`cost`,`transaction`.`created_on`, `transaction`.`unit`, `detail`.`name` as sam, `product`.`product_name` as pam, `transaction`.`type` FROM `transaction` INNER JOIN `detail` ON `detail`.`type`=`transaction`.`type` INNER JOIN `product` ON `product`.`product_id`=`transaction`.`product_id`");
+        $getData = $this->db->query("SELECT `product_id`,`product_name`,`created_on` FROM `product` WHERE `deleteProduct` = '0'");
         // $getData = $this->db->get($this->table);
         // $getData = $this->db->get($this->table);
         // $q = $this->db->get($this->table);
@@ -150,9 +150,6 @@ class productModel extends CI_Model
     function get_name_product($q)
     {
         $q = $this->db->query("SELECT distinct `product_name` FROM `product` where `deleteProduct` = '0' and product_name LIKE '%$q%'");
-//        $q = $this->db->query("SELECT DISTINCT `product_name` as 'fetch' from `product` AND 'fetch' LIKE '%$q%' ");
-        // $this->db->select('product_name')->from('transaction');
-        // $q = $this->db->get();
         if ($q->num_rows() > 0) {
             foreach ($q->result_array() as $row) {
                 $row_set[] = htmlentities(stripslashes($row['product_name'])); //build an array
@@ -179,7 +176,7 @@ class productModel extends CI_Model
         {
             $data=array('product_name' => $value);
             $data['users_id'] = $this->user->users_id;
-            $data['date_posted'] = date('Y-m-d H:i:s');
+            $data['created_on'] = date('Y-m-d H:i:s');
             // $data['users_id'] = $this->user->users_id; // user ko id
 
             $this->add($data);

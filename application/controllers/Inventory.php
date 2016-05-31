@@ -19,6 +19,7 @@ class Inventory extends CI_Controller
         $this->load->model('transactionModel', 'transaction');
         $this->load->model('detailModel', 'detail');
         $this->load->model('batchModel', 'batch');
+        $this->load->model('preferenceModel', 'preference');
         $this->load->model('productLogModel', 'productLog');
         $this->load->model('transactionLogModel', 'transactionLog');
 
@@ -300,8 +301,10 @@ class Inventory extends CI_Controller
             $data['created_on'] = date('Y-m-d H:i:s');
             $data['users_id'] = $this->user->users_id;
 
-
+            $this->batch->add($data);
             $getBatch['batch_id'] = $this->batch->insert_id_new();
+
+
             $name = $data['name'];
             $cash_amount = $data['cash_amount'];
 
@@ -309,14 +312,15 @@ class Inventory extends CI_Controller
             $getNameValue = array(
                 'name'  => $name,
                 'cash_amount' => $cash_amount,
-                'batch_id'     => $getBatch,
+                'batch_id'     => $getBatch['batch_id'],
             );
+
             $this->session->set_userdata('nameValue', $getNameValue);
 
             redirect('inventory/newSystemBatch/' . $getBatch['batch_id']);
         } else {
             $this->header();
-            $data['action'] = 'System';
+            $data['action'] = 'Sell';
             $data['users_id'] = $this->user->users_id;
             $this->load->view("admin/newSystemBatch", $data);
             $this->footer();
@@ -327,7 +331,6 @@ class Inventory extends CI_Controller
     {
         if ($data = $this->input->post('systemProduct')) {
 
-//            $data['users_id'] = $this->user->users_id;
             $data['batch_id'] = $getBatch;
 
             if (isset($data['sum'])) {
@@ -335,9 +338,18 @@ class Inventory extends CI_Controller
                 unset($data['sum']);
             }
 
+            if (isset($data['unit'])) {
+                $data['unit'] = $data['unit'] * -1;
+            }
+            if (isset($data['cost'])) {
+                $data['cost'] = $data['cost'] * -1;
+            }
+
+
             $productName = $data['product_name'];
             $unit = $data['unit'];
             $cost = $data['cost'];
+            $type =
 
             // below defines the code for the add multidimensional array on session
 
@@ -346,29 +358,56 @@ class Inventory extends CI_Controller
                 'product_name'  => $productName,
                 'unit'     => $unit,
                 'cost' => $cost
+//                'type' => '1'
 
             );
+
             $this->session->set_userdata('sessiondata', $getValue);
 
             //end of adding data on session
 
             $this->session->set_flashdata('message', $data);
 
-            redirect('inventory/newSystemMessage/' . $getBatch['batch_id']);
+            redirect('inventory/newSystemMessage/' . $getBatch);
 
         }
 
-        if ($data = $this->input->post('allProduct')) {
-            $this->header();
-            $this->footer();
-//            $data['action'] = 'Posted';
-            $this->transaction->addNew($data);
-            $this->load->view("admin/newSystemTable", $data);
+        if ($data = $this->input->post('newBatch')) {
+            $data['created_on'] = date('Y-m-d H:i:s');
+            $data['users_id'] = $this->user->users_id;
+
+
+            if ($data = $this->input->post('allProduct')) {
+                $data['created_on'] = date('Y-m-d H:i:s');
+                $data['users_id'] = $this->user->users_id;
+
+                if (isset($data['product_name'])) {
+                    foreach($data['product_name'] as $get){
+                    $data['product_id'] = $this->product->getId($get);
+                    unset($data['product_name']);
+                }
+                }
+
+
+                $data['batch_id'] = $getBatch;
+                $data['type'] = '1'; // this is for buyer type defined
+                $this->header();
+                $this->footer();
+                $this->transaction->add($data);
+                $this->batch->updateAll($data, $getBatch);
+            }
+
+
+            $this->session->unset_userdata('sessiondata');
+            $this->session->unset_userdata('nameValue');
+            echo 'Product Added Succesfully';
+            redirect('inventory/newSystem');
+
         }
 
         else {
             $this->header();
-            $data['action'] = 'System';
+            $data['action'] = 'Sell';
             $data['users_id'] = $this->user->users_id;
             $this->load->view("admin/newSystemTable", $data);
             $this->footer();
@@ -386,6 +425,164 @@ class Inventory extends CI_Controller
 
     // End of function VERSION-2 of inventory system
 
+    // new system is been created for the newBuySystem
+
+    public function buyNewSystem(){
+
+        if ($data = $this->input->post('BuyNewBatch')) {
+//            $data['created_on'] = date('Y-m-d H:i:s');
+            $data['users_id'] = $this->user->users_id;
+
+            $time = microtime(true);
+            $micro = sprintf("%06d",($time - floor($time)) * 1000000);
+            $date['created_on'] = new DateTime( date('Y-m-d H:i:s.'.$micro, $time) );
+//            $generate = uniqid();
+
+            $this->batch->add($data);
+            $getBatch['batch_id'] = $this->batch->insert_id_new();
+
+            $name = $data['name'];
+            $cash_amount = $data['cash_amount'];
+
+            $getNameValue = $this->session->userdata('nameValue');
+            $getNameValue = array(
+                'name'  => $name,
+                'cash_amount' => $cash_amount,
+                'batch_id'     => $getBatch['batch_id'],
+//                'generate' => $generate
+            );
+
+//            $json = json_encode($getNameValue);
+//            setcookie('cards', $json);
+
+            $this->session->set_userdata('nameValue', $getNameValue);
+            redirect('inventory/buySystemTable/' . $getBatch['batch_id'] );
+
+//            redirect('inventory/buySystemTable/' . $getBatch['batch_id'] . $generate);
+        } else {
+            $this->header();
+            $data['action'] = 'Buy';
+//            $getValue = $this->session->set_userdata('sessiondata');
+//            if ($getValue != NULL) {
+            $this->session->unset_userdata('sessiondata');
+//            }
+            $data['users_id'] = $this->user->users_id;
+            $this->load->view("admin/newBuyProduct", $data);
+            $this->footer();
+        }
+    }
+
+    public function buySystemTable($getBatch)
+        {
+//            $cookie = $_COOKIE['cards'];
+//            $cookie = stripslashes($cookie);
+//            $savedCardArray = json_decode($cookie, true);
+//
+//            if(isset($getBatch) === ($savedCardArray)){
+//                echo 'yo milcha';
+//            }
+//            else{
+//                echo 'Yo mildaina';
+//            }
+//            print_r($getBatch);
+//            exit;
+
+
+            if ($data = $this->input->post('BuySystemProduct')) {
+
+                    $time = microtime(true);
+                    $micro = sprintf("%06d",($time - floor($time)) * 1000000);
+                    $date['created_on'] = new DateTime( date('Y-m-d H:i:s.'.$micro, $time) );
+
+                    $data['batch_id'] = $getBatch;
+
+                    if (isset($data['sum'])) {
+                        $data['cost'] = $data['cost'] / $data['unit'];
+                        unset($data['sum']);
+                    }
+
+                    $productName = $data['product_name'];
+                    $unit = $data['unit'];
+                    $cost = $data['cost'];
+                    $selling_price = $data['selling_price'];
+                    $discount = $data['discount'];
+                    // below defines the code for the add multidimensional array on session
+
+                    $getValue = $this->session->userdata('sessiondata');
+                    $getValue[] = array(
+                        'product_name'  => $productName,
+                        'unit'     => $unit,
+                        'cost' => $cost,
+                        'selling_price' => $selling_price,
+                        'discount' => $discount
+                    );
+
+//                print_r($getValue[$generate]);
+//                exit;
+                    $this->session->set_userdata('sessiondata', $getValue);
+
+                    //end of adding data on session
+
+                    $this->session->set_flashdata('message', $data);
+
+                    redirect('inventory/BuySystemMessage/' . $getBatch);
+
+                }
+
+                if ($data = $this->input->post('BuyNewBatch')) {
+                    $data['created_on'] = date('Y-m-d H:i:s');
+                    $data['users_id'] = $this->user->users_id;
+
+
+                    if ($data = $this->input->post('BuyAllProduct')) {
+                        $data['created_on'] = date('Y-m-d H:i:s');
+                        $data['users_id'] = $this->user->users_id;
+
+                        if (isset($data['product_name'])) {
+                            foreach($data['product_name'] as $get){
+                                $data['product_id'] = $this->product->getId($get);
+                                unset($data['product_name']);
+                            }
+                        }
+
+
+                        $data['batch_id'] = $getBatch;
+                        $data['type'] = '1'; // this is for buyer type defined
+                        $this->header();
+                        $this->footer();
+                        $this->transaction->add($data);
+                        $this->batch->updateAll($data, $getBatch);
+                        $this->preference->add($data);
+                        $this->preference->update($data);
+                    }
+
+
+                    $this->session->unset_userdata('sessiondata');
+                    $this->session->unset_userdata('nameValue');
+                    echo 'Product Added Succesfully';
+                    redirect('inventory/buyNewSystem');
+
+                }
+
+                else {
+                    $this->header();
+                    $data['action'] = 'Buy';
+                    $data['users_id'] = $this->user->users_id;
+                    $this->load->view("admin/buySystemTable", $data);
+                    $this->footer();
+                }
+            }
+
+
+    public function BuySystemMessage($getBatch)
+    {
+        $this->header();
+        $data['batch_id'] = $getBatch;
+//        $data['']
+        $this->load->view("admin/BuySystemMessage", $data);
+        $this->footer();
+    }
+    // End of the new Buy System
 
     public function reportTransaction()
     {

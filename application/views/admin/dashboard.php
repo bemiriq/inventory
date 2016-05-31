@@ -105,9 +105,9 @@
                             <td><?=$post->pam?></td>
                            <td><?=$post->unt?></td>
                            <td><?=$post->cst?></td>
-                           <td><?=$post->date_posted?></td>
+                           <td><?=$post->created_on?></td>
                            <!-- <td><?=$post->stock_remain?></td>
-                           <td><?=$post->date_posted?></td> -->
+                           <td><?=$post->created_on?></td> -->
                         </tr>
                         <?php $i++; endforeach; ?>
                      </tbody>
